@@ -1,19 +1,15 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  Container,
-  Typography,
-} from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import Navbar from "@/components/Navbar";
+import PlayerCard from "@/components/PlayerCard";
 
 export default function Home() {
   const players: any[] = [
     // Uncomment these lines to simulate players
-    // { name: "Player 1", age: 25 },
-    // { name: "Player 2", age: 30 },
+    { name: "Player 1" },
+    { name: "Player 2" },
+    { name: "Player 3" },
   ];
 
   return (
@@ -67,22 +63,12 @@ export default function Home() {
             flexDirection="row"
             flexWrap="wrap"
             justifyContent="center"
+            mx={-5}
           >
             {players.map((player, index) => (
-              <Card
-                key={index}
-                style={{
-                  marginBottom: 16,
-                  marginLeft: 10,
-                  marginRight: 10,
-                  marginTop: 100,
-                }}
-              >
-                <CardContent>
-                  <Typography variant="h6">{player.name}</Typography>
-                  <Typography>Age: {player.age}</Typography>
-                </CardContent>
-              </Card>
+              <Box key={index} m={5}>
+                <PlayerCard player={player} />
+              </Box>
             ))}
           </Box>
         )}
