@@ -16,6 +16,9 @@ const PlayerProfilePage = () => {
     apg: 6.3,
     rpg: 5.5,
     team: "Lakers",
+    birthDate: "1995-01-15",
+    hometown: "Los Angeles",
+    age: 28,
   };
 
   return (
@@ -30,36 +33,79 @@ const PlayerProfilePage = () => {
       <Typography variant="h6" gutterBottom>
         ID: {player.id}
       </Typography>
-
-      <Card
-        elevation={3}
-        style={{ width: "100%", maxWidth: 400, marginTop: 20 }}
+      <Box
+        display="flex"
+        flexDirection={{ xs: "column", sm: "row" }} // Vertical on small and below, horizontal on medium and above
+        alignItems="start"
+        width="100%"
+        justifyContent="center"
       >
-        <CardContent>
-          <Box display="flex" alignItems="center" marginBottom={2}>
-            <SportsBasketballIcon color="primary" style={{ marginRight: 10 }} />
-            <Typography variant="body1">
-              Points Per Game (PPG): {player.ppg}
+        <Card
+          elevation={3}
+          sx={{
+            width: "100%",
+            maxWidth: { sm: 400 }, // Responsive width
+            marginTop: 2,
+            marginBottom: { xs: 2, sm: 0 }, // Margin at bottom for small screens
+            marginLeft: { xs: 0, sm: 2 }, // Margin left only for screens bigger than small
+            height: 200,
+          }}
+        >
+          <CardContent>
+            <Typography variant="h6" gutterBottom marginBottom={2}>
+              Personal Information
             </Typography>
-          </Box>
-
-          <Box display="flex" alignItems="center" marginBottom={2}>
-            <GroupIcon color="primary" style={{ marginRight: 10 }} />
-            <Typography variant="body1">
-              Assists Per Game (APG): {player.apg}
+            <Typography variant="body1" marginBottom={2}>
+              Birth Date: {player.birthDate}
             </Typography>
-          </Box>
-
-          <Box display="flex" alignItems="center" marginBottom={2}>
-            <EmojiPeopleIcon color="primary" style={{ marginRight: 10 }} />
-            <Typography variant="body1">
-              Rebounds Per Game (RPG): {player.rpg}
+            <Typography variant="body1" marginBottom={2}>
+              Hometown: {player.hometown}
             </Typography>
-          </Box>
+            <Typography variant="body1" marginBottom={2}>
+              Age: {player.age}
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card
+          elevation={3}
+          sx={{
+            width: "100%",
+            maxWidth: { sm: 400 }, // Responsive width
+            marginTop: 2,
+            marginBottom: { xs: 2, sm: 0 }, // Margin at bottom for small screens
+            marginLeft: { xs: 0, sm: 2 }, // Margin left only for screens bigger than small
+            height: 200,
+          }}
+        >
+          <CardContent>
+            <Box display="flex" alignItems="center" marginBottom={2}>
+              <SportsBasketballIcon
+                color="primary"
+                style={{ marginRight: 10 }}
+              />
+              <Typography variant="body1">
+                Points Per Game (PPG): {player.ppg}
+              </Typography>
+            </Box>
 
-          <Typography>Team: {player.team}</Typography>
-        </CardContent>
-      </Card>
+            <Box display="flex" alignItems="center" marginBottom={2}>
+              <GroupIcon color="primary" style={{ marginRight: 10 }} />
+              <Typography variant="body1">
+                Assists Per Game (APG): {player.apg}
+              </Typography>
+            </Box>
+
+            <Box display="flex" alignItems="center" marginBottom={2}>
+              <EmojiPeopleIcon color="primary" style={{ marginRight: 10 }} />
+              <Typography variant="body1">
+                Rebounds Per Game (RPG): {player.rpg}
+              </Typography>
+            </Box>
+
+            <Typography>Team: {player.team}</Typography>
+          </CardContent>
+        </Card>
+      </Box>
     </Box>
   );
 };
