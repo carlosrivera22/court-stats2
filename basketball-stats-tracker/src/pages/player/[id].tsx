@@ -3,6 +3,7 @@ import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import GroupIcon from "@mui/icons-material/Group";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+import StatsTable from "@/components/StatsTable";
 
 const PlayerProfilePage = () => {
   const router = useRouter();
@@ -39,6 +40,7 @@ const PlayerProfilePage = () => {
         alignItems="start"
         width="100%"
         justifyContent="center"
+        marginBottom={5}
       >
         <Card
           elevation={3}
@@ -106,6 +108,7 @@ const PlayerProfilePage = () => {
           </CardContent>
         </Card>
       </Box>
+      <StatsTable />
     </Box>
   );
 };

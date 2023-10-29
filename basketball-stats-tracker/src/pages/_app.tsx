@@ -11,7 +11,7 @@ const theme = createTheme({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
-      <Box mb={15}>
+      <Box mb={10}>
         <Navbar />
       </Box>
       <Component {...pageProps} />
