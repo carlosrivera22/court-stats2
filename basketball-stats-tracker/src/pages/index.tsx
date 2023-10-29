@@ -9,9 +9,9 @@ import PlayerModal from "@/components/PlayerModal";
 export default function Home() {
   const players: any[] = [
     // Uncomment these lines to simulate players
-    { name: "Player 1" },
-    { name: "Player 2" },
-    { name: "Player 3" },
+    { id: 1, name: "Player 1" },
+    { id: 2, name: "Player 2" },
+    { id: 3, name: "Player 3" },
   ];
 
   const [isModalOpen, setModalOpen] = useState(false);
