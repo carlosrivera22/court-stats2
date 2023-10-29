@@ -1,4 +1,4 @@
-import { Button, Container, Typography } from "@mui/material";
+import { Button, Container, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import Navbar from "@/components/Navbar";
@@ -29,27 +29,34 @@ export default function Home() {
             width={200}
             height={200}
           />
-
-          <Button
-            startIcon={
-              <AddIcon
-                style={{
-                  paddingBottom: 5,
-                }}
-              />
-            }
-            size="large"
-            variant="contained"
-            color="primary"
-            style={{
-              borderRadius: 25,
-              fontWeight: "800",
-              marginTop: 20,
-              paddingTop: 12,
-            }}
-          >
-            Add Player
-          </Button>
+          <Box marginTop={5}>
+            <TextField
+              id="outlined-search"
+              label="Search player"
+              type="search"
+            />
+            <Button
+              startIcon={
+                <AddIcon
+                  style={{
+                    paddingBottom: 5,
+                  }}
+                />
+              }
+              size="large"
+              variant="contained"
+              color="primary"
+              style={{
+                borderRadius: 25,
+                fontWeight: "800",
+                paddingTop: 12,
+                marginTop: 5,
+                marginLeft: 20,
+              }}
+            >
+              Add Player
+            </Button>
+          </Box>
         </Box>
         {players.length === 0 ? (
           <Box display="flex" flexDirection="column" alignItems="center">
