@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button, Container, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
-import Navbar from "@/components/Navbar";
 import PlayerCard from "@/components/PlayerCard";
 import PlayerModal from "@/components/PlayerModal";
 
@@ -18,7 +17,6 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
       <Container>
         <Box
           display="flex"
