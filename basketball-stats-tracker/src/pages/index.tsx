@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Button, Container, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import Navbar from "@/components/Navbar";
 import PlayerCard from "@/components/PlayerCard";
+import PlayerModal from "@/components/PlayerModal";
 
 export default function Home() {
   const players: any[] = [
@@ -11,6 +13,8 @@ export default function Home() {
     { name: "Player 2" },
     { name: "Player 3" },
   ];
+
+  const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -53,6 +57,7 @@ export default function Home() {
                 marginTop: 5,
                 marginLeft: 20,
               }}
+              onClick={() => setModalOpen(true)}
             >
               Add Player
             </Button>
@@ -80,6 +85,11 @@ export default function Home() {
           </Box>
         )}
       </Container>
+      <PlayerModal
+        open={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onSubmit={() => console.log("NOT IMPLEMENTED YET")}
+      />
     </>
   );
 }
