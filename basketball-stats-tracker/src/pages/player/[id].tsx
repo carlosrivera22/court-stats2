@@ -1,9 +1,18 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+} from "@mui/material";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import GroupIcon from "@mui/icons-material/Group";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import StatsTable from "@/components/StatsTable";
+import AddStatsModal from "@/components/AddStatsModal";
 
 const PlayerProfilePage = () => {
   const router = useRouter();
@@ -21,6 +30,14 @@ const PlayerProfilePage = () => {
     age: 28,
   };
 
+  const [open, setOpen] = useState(false);
+
+  const handleAddData = (data: any) => {
+    // Logic to save data (e.g., update the 'rows' array)
+    // For now, just console.log the data
+    console.log(data);
+  };
+
   return (
     <Box display="flex" flexDirection="column" alignItems="center" padding={5}>
       <Avatar
@@ -33,6 +50,24 @@ const PlayerProfilePage = () => {
       <Typography variant="h6" gutterBottom>
         ID: {player.id}
       </Typography>
+      <Box mt={2} mb={2}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setOpen(true)}
+          style={{
+            fontWeight: "800",
+          }}
+        >
+          Add Stats
+        </Button>
+      </Box>
+
+      <AddStatsModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onSubmit={handleAddData}
+      />
       <Box
         display="flex"
         flexDirection={{ xs: "column", sm: "row" }} // Vertical on small and below, horizontal on medium and above
