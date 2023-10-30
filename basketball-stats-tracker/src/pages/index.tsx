@@ -12,6 +12,8 @@ export default function Home() {
     { id: 2, name: "Player 2" },
     { id: 3, name: "Player 3" },
     { id: 4, name: "Player 4" },
+    { id: 5, name: "Player 5" },
+    { id: 6, name: "Player 6" },
   ];
 
   const [isModalOpen, setModalOpen] = useState(false);
