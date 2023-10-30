@@ -48,7 +48,7 @@ const PlayerProfilePage = () => {
             maxWidth: { sm: 400 }, // Responsive width
             marginTop: 2,
             marginBottom: { xs: 2, sm: 0 }, // Margin at bottom for small screens
-            marginLeft: { xs: 0, sm: 2 }, // Margin left only for screens bigger than small
+            marginLeft: { xs: 0, sm: 0 }, // Margin left only for screens bigger than small
             height: 200,
           }}
         >
@@ -74,7 +74,7 @@ const PlayerProfilePage = () => {
             maxWidth: { sm: 400 }, // Responsive width
             marginTop: 2,
             marginBottom: { xs: 2, sm: 0 }, // Margin at bottom for small screens
-            marginLeft: { xs: 0, sm: 2 }, // Margin left only for screens bigger than small
+            marginLeft: { xs: 0, sm: 3 }, // Margin left only for screens bigger than small
             height: 200,
           }}
         >
