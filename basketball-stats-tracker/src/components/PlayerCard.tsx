@@ -8,7 +8,13 @@ import Link from "next/link";
 
 export default function PlayerCard({ player }: { player: any }) {
   return (
-    <Link href={`/player/${player.id}`} passHref>
+    <Link
+      href={`/player/${player.id}`}
+      passHref
+      style={{
+        textDecoration: "none",
+      }}
+    >
       <Card sx={{ maxWidth: 300 }}>
         <CardActionArea>
           <CardMedia

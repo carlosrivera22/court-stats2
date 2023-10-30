@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Container, TextField, Typography } from "@mui/material";
+import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import PlayerCard from "@/components/PlayerCard";
@@ -11,6 +11,7 @@ export default function Home() {
     { id: 1, name: "Player 1" },
     { id: 2, name: "Player 2" },
     { id: 3, name: "Player 3" },
+    { id: 4, name: "Player 4" },
   ];
 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -31,34 +32,46 @@ export default function Home() {
             width={200}
             height={200}
           />
-          <Box marginTop={5}>
-            <TextField
-              id="outlined-search"
-              label="Search player"
-              type="search"
-            />
-            <Button
-              startIcon={
-                <AddIcon
-                  style={{
-                    paddingBottom: 5,
-                  }}
-                />
-              }
-              size="large"
-              variant="contained"
-              color="primary"
-              style={{
-                borderRadius: 25,
-                fontWeight: "800",
-                paddingTop: 12,
-                marginTop: 5,
-                marginLeft: 20,
-              }}
-              onClick={() => setModalOpen(true)}
+          <Box marginTop={5} marginBottom={5}>
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+              alignItems="center"
             >
-              Add Player
-            </Button>
+              <Grid item xs={12} sm={12} md={7}>
+                <TextField
+                  fullWidth
+                  id="outlined-search"
+                  label="Search player"
+                  type="search"
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={5}>
+                <Button
+                  fullWidth
+                  startIcon={
+                    <AddIcon
+                      style={{
+                        paddingBottom: 5,
+                      }}
+                    />
+                  }
+                  size="large"
+                  variant="contained"
+                  color="primary"
+                  style={{
+                    borderRadius: 25,
+                    fontWeight: "800",
+                    paddingTop: 12,
+                    marginTop: 5,
+                  }}
+                  onClick={() => setModalOpen(true)}
+                >
+                  Add Player
+                </Button>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
         {players.length === 0 ? (
