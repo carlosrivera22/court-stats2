@@ -55,11 +55,11 @@ const PlayerModal: React.FC<PlayerModalProps> = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary">
-          Cancel
-        </Button>
         <Button onClick={handleSave} color="primary">
           Save
+        </Button>
+        <Button onClick={onClose} color="primary">
+          Cancel
         </Button>
       </DialogActions>
     </Dialog>

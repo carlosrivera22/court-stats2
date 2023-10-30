@@ -188,7 +188,7 @@ export default function ProfileTabs({ player }: { player: any }) {
         </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        No Highlights
       </CustomTabPanel>
     </Box>
   );
