@@ -1,18 +1,6 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-} from "@mui/material";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import GroupIcon from "@mui/icons-material/Group";
-import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
-import StatsTable from "@/components/StatsTable";
-import AddStatsModal from "@/components/AddStatsModal";
+import { Avatar, Box, Typography } from "@mui/material";
+import ProfileTabs from "@/components/ProfileTabs";
 
 const PlayerProfilePage = () => {
   const router = useRouter();
@@ -30,19 +18,11 @@ const PlayerProfilePage = () => {
     age: 28,
   };
 
-  const [open, setOpen] = useState(false);
-
-  const handleAddData = (data: any) => {
-    // Logic to save data (e.g., update the 'rows' array)
-    // For now, just console.log the data
-    console.log(data);
-  };
-
   return (
     <Box display="flex" flexDirection="column" alignItems="center" padding={5}>
       <Avatar
         src="/images/player_placeholder.png"
-        sx={{ width: 200, height: 200, marginBottom: 5, marginTop: 1 }}
+        sx={{ width: 150, height: 150, marginBottom: 5, marginTop: 1 }}
       />
       <Typography variant="h4" gutterBottom>
         {player.firstName} {player.lastName}
@@ -50,99 +30,7 @@ const PlayerProfilePage = () => {
       <Typography variant="h6" gutterBottom>
         ID: {player.id}
       </Typography>
-      <Box mt={2} mb={2}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setOpen(true)}
-          style={{
-            fontWeight: "800",
-          }}
-        >
-          Add Stats
-        </Button>
-      </Box>
-
-      <AddStatsModal
-        open={open}
-        onClose={() => setOpen(false)}
-        onSubmit={handleAddData}
-      />
-      <Box
-        display="flex"
-        flexDirection={{ xs: "column", sm: "row" }} // Vertical on small and below, horizontal on medium and above
-        alignItems="start"
-        width="100%"
-        justifyContent="center"
-        marginBottom={5}
-      >
-        <Card
-          elevation={3}
-          sx={{
-            width: "100%",
-            maxWidth: { sm: 400 }, // Responsive width
-            marginTop: 2,
-            marginBottom: { xs: 2, sm: 0 }, // Margin at bottom for small screens
-            marginLeft: { xs: 0, sm: 0 }, // Margin left only for screens bigger than small
-            height: 200,
-          }}
-        >
-          <CardContent>
-            <Typography variant="h6" gutterBottom marginBottom={2}>
-              Personal Information
-            </Typography>
-            <Typography variant="body1" marginBottom={2}>
-              Age: {player.age}
-            </Typography>
-            <Typography variant="body1" marginBottom={2}>
-              Birth Date: {player.birthDate}
-            </Typography>
-            <Typography variant="body1" marginBottom={2}>
-              Hometown: {player.hometown}
-            </Typography>
-          </CardContent>
-        </Card>
-        <Card
-          elevation={3}
-          sx={{
-            width: "100%",
-            maxWidth: { sm: 400 }, // Responsive width
-            marginTop: 2,
-            marginBottom: { xs: 2, sm: 0 }, // Margin at bottom for small screens
-            marginLeft: { xs: 0, sm: 3 }, // Margin left only for screens bigger than small
-            height: 200,
-          }}
-        >
-          <CardContent>
-            {" "}
-            <Typography variant="h6" gutterBottom marginBottom={2}>
-              Player Stats
-            </Typography>
-            <Box display="flex" alignItems="center" marginBottom={2}>
-              <SportsBasketballIcon
-                color="primary"
-                style={{ marginRight: 10 }}
-              />
-              <Typography variant="body1">
-                Points Per Game (PPG): {player.ppg}
-              </Typography>
-            </Box>
-            <Box display="flex" alignItems="center" marginBottom={2}>
-              <GroupIcon color="primary" style={{ marginRight: 10 }} />
-              <Typography variant="body1">
-                Assists Per Game (APG): {player.apg}
-              </Typography>
-            </Box>
-            <Box display="flex" alignItems="center" marginBottom={2}>
-              <EmojiPeopleIcon color="primary" style={{ marginRight: 10 }} />
-              <Typography variant="body1">
-                Rebounds Per Game (RPG): {player.rpg}
-              </Typography>
-            </Box>
-          </CardContent>
-        </Card>
-      </Box>
-      <StatsTable />
+      <ProfileTabs player={player} />
     </Box>
   );
 };
