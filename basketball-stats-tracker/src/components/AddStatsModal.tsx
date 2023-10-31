@@ -34,7 +34,7 @@ export default function AddStatsModal({ open, onClose, onSubmit }: Props) {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Add New Data Point</DialogTitle>
+      <DialogTitle>Add Stats</DialogTitle>
       <DialogContent>
         <DatePicker sx={{ width: "100%" }} />
 
