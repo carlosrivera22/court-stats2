@@ -41,7 +41,7 @@ export default function Home() {
               justifyContent="center"
               alignItems="center"
             >
-              <Grid item xs={12} sm={12} md={7}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
                 <TextField
                   fullWidth
                   id="outlined-search"
@@ -49,7 +49,7 @@ export default function Home() {
                   type="search"
                 />
               </Grid>
-              <Grid item xs={12} sm={12} md={5}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Button
                   fullWidth
                   startIcon={
