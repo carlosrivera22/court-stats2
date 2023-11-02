@@ -26,13 +26,13 @@ export default function PlayerCard({ player }: { player: any }) {
             <Typography gutterBottom variant="h5" component="div">
               {player.name}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2">
               Points Per Game (PPG): {player.ppg}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2">
               Assists Per Game (APG): {player.apg}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2">
               Rebounds Per Game (RPG): {player.rpg}
             </Typography>
           </CardContent>

@@ -57,20 +57,13 @@ export default function Home() {
               <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Button
                   fullWidth
-                  startIcon={
-                    <AddIcon
-                      style={{
-                        paddingBottom: 5,
-                      }}
-                    />
-                  }
+                  startIcon={<AddIcon />}
                   size="large"
                   variant="contained"
                   color="primary"
                   style={{
                     borderRadius: 25,
                     fontWeight: "800",
-                    paddingTop: 12,
                     marginTop: 5,
                   }}
                   onClick={() => setModalOpen(true)}
