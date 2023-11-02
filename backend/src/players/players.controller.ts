@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 
 @Controller("players")
 export class PlayersController {
@@ -32,5 +32,10 @@ export class PlayersController {
       hometown: "Los Angeles",
       age: 28,
     });
+  }
+
+  @Post()
+  createPlayer(@Body() data: any): any {
+    return data;
   }
 }

@@ -9,23 +9,19 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import { addPlayer } from "@/services/players";
 
 interface PlayerModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (firstName: string, lastName: string) => void;
 }
 
-const PlayerModal: React.FC<PlayerModalProps> = ({
-  open,
-  onClose,
-  onSubmit,
-}) => {
+const PlayerModal: React.FC<PlayerModalProps> = ({ open, onClose }) => {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
 
-  const handleSave = () => {
-    onSubmit(firstName, lastName);
+  const handleSave = async () => {
+    await addPlayer({ firstName, lastName });
     setFirstName("");
     setLastName("");
     onClose();
@@ -55,11 +51,11 @@ const PlayerModal: React.FC<PlayerModalProps> = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSave} color="primary">
-          Save
-        </Button>
         <Button onClick={onClose} color="primary">
           Cancel
+        </Button>
+        <Button onClick={handleSave} color="primary">
+          Save
         </Button>
       </DialogActions>
     </Dialog>

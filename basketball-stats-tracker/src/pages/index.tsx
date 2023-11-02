@@ -103,11 +103,7 @@ export default function Home() {
           </Box>
         )}
       </Container>
-      <PlayerModal
-        open={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        onSubmit={() => console.log("NOT IMPLEMENTED YET")}
-      />
+      <PlayerModal open={isModalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }
