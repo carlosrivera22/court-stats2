@@ -34,7 +34,7 @@ export default function Home() {
           minHeight="30vh"
         >
           <img
-            src={"./images/hoop_logo.png"}
+            src={"./images/logo.png"}
             alt={"logo"}
             width={200}
             height={200}
