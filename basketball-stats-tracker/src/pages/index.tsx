@@ -62,7 +62,6 @@ export default function Home() {
                   variant="contained"
                   color="primary"
                   style={{
-                    borderRadius: 25,
                     fontWeight: "800",
                     marginTop: 5,
                   }}
