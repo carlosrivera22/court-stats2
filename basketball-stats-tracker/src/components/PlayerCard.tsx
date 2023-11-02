@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Link from "next/link";
+import Box from "@mui/material/Box"; // import Box component
 
 export default function PlayerCard({ player }: { player: any }) {
   return (
@@ -15,27 +16,42 @@ export default function PlayerCard({ player }: { player: any }) {
         textDecoration: "none",
       }}
     >
-      <Card sx={{ maxWidth: 300 }}>
-        <CardActionArea>
+      <Card sx={{ display: "flex", maxWidth: 600 }}>
+        {" "}
+        {/* Update here */}
+        <CardActionArea sx={{ display: "flex", flexDirection: "row" }}>
+          {" "}
+          {/* Update here */}
           <CardMedia
             component="img"
+            sx={{ width: 180 }} // Adjust the image width as needed
             image="./images/player_placeholder.png"
             alt="Player Image"
           />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {player.name}
-            </Typography>
-            <Typography variant="body2">
-              Points Per Game (PPG): {player.ppg}
-            </Typography>
-            <Typography variant="body2">
-              Assists Per Game (APG): {player.apg}
-            </Typography>
-            <Typography variant="body2">
-              Rebounds Per Game (RPG): {player.rpg}
-            </Typography>
-          </CardContent>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            {" "}
+            {/* Add this */}
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {player.firstName} {player.lastName}
+              </Typography>
+              <Typography fontWeight={"600"}>
+                Points Per Game (PPG): {player.ppg}
+              </Typography>
+              <Typography fontWeight={"600"}>
+                Assists Per Game (APG): {player.apg}
+              </Typography>
+              <Typography fontWeight={"600"}>
+                Rebounds Per Game (RPG): {player.rpg}
+              </Typography>
+            </CardContent>
+          </Box>
         </CardActionArea>
       </Card>
     </Link>
