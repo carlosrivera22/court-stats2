@@ -1,22 +1,27 @@
-import { useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import PlayerCard from "@/components/PlayerCard";
 import PlayerModal from "@/components/PlayerModal";
+import { getPlayers } from "@/services/players";
 
 export default function Home() {
-  const players: any[] = [
-    // Uncomment these lines to simulate players
-    { id: 1, name: "Player 1" },
-    { id: 2, name: "Player 2" },
-    { id: 3, name: "Player 3" },
-    { id: 4, name: "Player 4" },
-    { id: 5, name: "Player 5" },
-    { id: 6, name: "Player 6" },
-  ];
+  const [players, setPlayers] = useState<any>(null);
+
+  useEffect(() => {
+    // Moved the function inside the useEffect to avoid unnecessary redeclarations
+    const fetchPlayers = async () => {
+      const data = await getPlayers();
+      setPlayers(data); // Set the player data directly here
+    };
+
+    fetchPlayers();
+  }, []);
 
   const [isModalOpen, setModalOpen] = useState(false);
+
+  if (!players) return null; // Add a loading state or some placeholder if the data isn't fetched yet
 
   return (
     <>
@@ -90,7 +95,7 @@ export default function Home() {
             justifyContent="center"
             mx={-5}
           >
-            {players.map((player, index) => (
+            {players.map((player: any, index: Key | null | undefined) => (
               <Box key={index} m={5}>
                 <PlayerCard player={player} />
               </Box>
