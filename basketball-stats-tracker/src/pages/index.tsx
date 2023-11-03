@@ -8,16 +8,15 @@ import { getPlayers } from "@/services/players";
 
 export default function Home() {
   const [players, setPlayers] = useState<any>(null);
-
   useEffect(() => {
     // Moved the function inside the useEffect to avoid unnecessary redeclarations
-    const fetchPlayers = async () => {
-      const data = await getPlayers();
-      setPlayers(data); // Set the player data directly here
-    };
-
     fetchPlayers();
   }, []);
+
+  const fetchPlayers = async () => {
+    const data = await getPlayers();
+    setPlayers(data); // Set the player data directly here
+  };
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -95,7 +94,11 @@ export default function Home() {
           </Box>
         )}
       </Container>
-      <PlayerModal open={isModalOpen} onClose={() => setModalOpen(false)} />
+      <PlayerModal
+        open={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onSubmit={fetchPlayers}
+      />
     </>
   );
 }

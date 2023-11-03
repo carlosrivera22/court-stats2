@@ -4,9 +4,6 @@ export interface Player {
   id: number;
   firstName: string;
   lastName: string;
-  ppg?: number;
-  apg?: number;
-  rpg?: number;
   birthDate?: string;
   hometown?: string;
   age?: number;

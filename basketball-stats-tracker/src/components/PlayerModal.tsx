@@ -14,14 +14,20 @@ import { addPlayer } from "@/services/players";
 interface PlayerModalProps {
   open: boolean;
   onClose: () => void;
+  onSubmit: () => void;
 }
 
-const PlayerModal: React.FC<PlayerModalProps> = ({ open, onClose }) => {
+const PlayerModal: React.FC<PlayerModalProps> = ({
+  open,
+  onClose,
+  onSubmit,
+}) => {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
 
   const handleSave = async () => {
     await addPlayer({ firstName, lastName });
+    await onSubmit();
     setFirstName("");
     setLastName("");
     onClose();
