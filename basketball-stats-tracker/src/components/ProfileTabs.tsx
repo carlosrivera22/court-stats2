@@ -3,7 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Badge, Card, CardContent, IconButton } from "@mui/material";
+import { Card, CardContent, IconButton } from "@mui/material";
 import StatsTable from "./StatsTable";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
