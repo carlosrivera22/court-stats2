@@ -1,45 +1,40 @@
-import React, { useState } from "react";
 import {
   Dialog,
-  DialogActions,
-  DialogContent,
   DialogTitle,
+  DialogContent,
   TextField,
+  DialogActions,
   Button,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
-import { addPlayerStats } from "@/services/players";
+import { useState } from "react";
 
 interface Props {
   open: boolean;
-  playerId: number;
   onClose: () => void;
   onSubmit: () => void;
 }
-
-export default function AddStatsModal({
+export default function EditPlayerInformationModal({
   open,
-  playerId,
   onClose,
   onSubmit,
 }: Props) {
   const [formData, setFormData] = useState({});
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async () => {
-    await addPlayerStats(playerId, formData);
     await onSubmit();
     onClose();
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Add Stats</DialogTitle>
+      <DialogTitle>Update Player Information</DialogTitle>
       <DialogContent>
         <DatePicker
+          label="Birth Date"
           sx={{ width: "100%" }}
           onChange={(value) => {
             setFormData({ ...formData, date: value });
@@ -48,25 +43,9 @@ export default function AddStatsModal({
 
         <TextField
           margin="dense"
-          name="points"
-          label="Points"
-          type="number"
-          fullWidth
-          onChange={handleChange}
-        />
-        <TextField
-          margin="dense"
-          name="assists"
-          label="Assists"
-          type="number"
-          fullWidth
-          onChange={handleChange}
-        />
-        <TextField
-          margin="dense"
-          name="rebounds"
-          label="Rebounds"
-          type="number"
+          name="hometown"
+          label="Hometown"
+          type="text"
           fullWidth
           onChange={handleChange}
         />

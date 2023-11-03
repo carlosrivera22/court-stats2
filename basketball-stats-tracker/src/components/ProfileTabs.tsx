@@ -3,14 +3,15 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Card, CardContent, IconButton } from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 import StatsTable from "./StatsTable";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import GroupIcon from "@mui/icons-material/Group";
 import { useEffect, useState } from "react";
 import { getPlayerAverages } from "@/services/players";
-import EditIcon from "@mui/icons-material/Edit";
+import PlayerInformationCard from "./PlayerInformationCard";
+
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -99,48 +100,7 @@ export default function ProfileTabs({ player }: { player: any }) {
             justifyContent="center"
             marginBottom={5}
           >
-            <Card
-              elevation={3}
-              sx={{
-                width: "100%",
-                maxWidth: { sm: 400 }, // Responsive width
-                marginTop: 2,
-                marginBottom: { xs: 2, sm: 0 }, // Margin at bottom for small screens
-                marginLeft: { xs: 0, sm: 0 }, // Margin left only for screens bigger than small
-                height: 200,
-              }}
-            >
-              <CardContent>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  mb={2}
-                >
-                  <Typography variant="h6" gutterBottom marginBottom={0}>
-                    Personal Information
-                  </Typography>
-                  <IconButton
-                    size="small"
-                    style={{
-                      background: "rgba(0, 0, 0, 0.04)",
-                      borderRadius: "50%",
-                    }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                </Box>
-                <Typography variant="body1" marginBottom={2}>
-                  Age: {player.age}
-                </Typography>
-                <Typography variant="body1" marginBottom={2}>
-                  Birth Date: {player.birthDate}
-                </Typography>
-                <Typography variant="body1" marginBottom={2}>
-                  Hometown: {player.hometown}
-                </Typography>
-              </CardContent>
-            </Card>
+            <PlayerInformationCard player={player} />
             <Card
               elevation={3}
               sx={{
