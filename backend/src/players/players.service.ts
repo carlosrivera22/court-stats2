@@ -10,7 +10,7 @@ export class PlayersService {
     return this.playersRepository.findAll();
   }
 
-  async findById(id: string): Promise<Player | undefined> {
+  async findById(id: number): Promise<Player | undefined> {
     return this.playersRepository.findById(id);
   }
 

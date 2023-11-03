@@ -13,7 +13,7 @@ export async function getPlayers() {
   }
 }
 
-export async function getPlayer(id: string) {
+export async function getPlayer(id: number) {
   try {
     const response = await fetch(`http://localhost:5000/players/${id}`);
 

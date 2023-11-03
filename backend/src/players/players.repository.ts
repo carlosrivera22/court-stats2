@@ -15,7 +15,7 @@ export class PlayersRepository {
     return db("players").select("*");
   }
 
-  async findById(id: string): Promise<Player | undefined> {
+  async findById(id: number): Promise<Player | undefined> {
     return db("players").where("id", id).first();
   }
 

@@ -11,13 +11,13 @@ const PlayerProfilePage = () => {
 
   useEffect(() => {
     // Moved the function inside the useEffect to avoid unnecessary redeclarations
-    const getPlayerById = async (playerId: string) => {
+    const getPlayerById = async (playerId: number) => {
       const data = await getPlayer(playerId);
       setPlayer(data); // Set the player data directly here
     };
 
     if (id) {
-      getPlayerById(id.toString());
+      getPlayerById(parseInt(id.toString()));
     }
   }, [id]);
 

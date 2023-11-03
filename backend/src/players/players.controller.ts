@@ -12,7 +12,7 @@ export class PlayersController {
   }
 
   @Get("/:id")
-  getPlayer(@Param("id") id: string) {
+  getPlayer(@Param("id") id: number) {
     return this.playersService.findById(id);
   }
 
