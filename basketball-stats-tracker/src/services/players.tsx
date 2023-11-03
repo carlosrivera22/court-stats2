@@ -91,7 +91,6 @@ export async function getPlayerAverages(playerId: number) {
       throw new Error("Network response was not ok");
     }
     const responseData = await response.json();
-    console.log("RESPONSE DATA: ", responseData);
     return responseData;
   } catch (error) {
     console.error("There was a problem with the fetch operation");

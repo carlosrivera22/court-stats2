@@ -24,7 +24,6 @@ export class PlayerStatsService {
 
   async findAveragesByPlayerId(playerId: number) {
     const playerStats = await this.findByPlayerId(playerId);
-    console.debug("playerStats", playerStats);
 
     if (playerStats.length === 0) {
       // Return null or appropriate default values if there are no stats
