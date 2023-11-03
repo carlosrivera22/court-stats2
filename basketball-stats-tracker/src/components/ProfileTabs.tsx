@@ -3,14 +3,14 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Card, CardContent } from "@mui/material";
+import { Badge, Card, CardContent, IconButton } from "@mui/material";
 import StatsTable from "./StatsTable";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import GroupIcon from "@mui/icons-material/Group";
 import { useEffect, useState } from "react";
 import { getPlayerAverages } from "@/services/players";
-
+import EditIcon from "@mui/icons-material/Edit";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -111,9 +111,25 @@ export default function ProfileTabs({ player }: { player: any }) {
               }}
             >
               <CardContent>
-                <Typography variant="h6" gutterBottom marginBottom={2}>
-                  Personal Information
-                </Typography>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  mb={2}
+                >
+                  <Typography variant="h6" gutterBottom marginBottom={0}>
+                    Personal Information
+                  </Typography>
+                  <IconButton
+                    size="small"
+                    style={{
+                      background: "rgba(0, 0, 0, 0.04)",
+                      borderRadius: "50%",
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </Box>
                 <Typography variant="body1" marginBottom={2}>
                   Age: {player.age}
                 </Typography>
