@@ -31,7 +31,7 @@ export default function AddStatsModal({
 
   const handleSubmit = async () => {
     await addPlayerStats(playerId, formData);
-    onSubmit();
+    await onSubmit();
     onClose();
   };
 

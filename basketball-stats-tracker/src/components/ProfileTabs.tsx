@@ -3,11 +3,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Button, Card, CardContent } from "@mui/material";
-import AddStatsModal from "./AddStatsModal";
+import { Card, CardContent } from "@mui/material";
 import StatsTable from "./StatsTable";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
-import { useState } from "react";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import GroupIcon from "@mui/icons-material/Group";
 
@@ -51,8 +49,6 @@ export default function ProfileTabs({ player }: { player: any }) {
     setValue(newValue);
   };
 
-  const [open, setOpen] = useState(false);
-
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -84,24 +80,6 @@ export default function ProfileTabs({ player }: { player: any }) {
           alignItems="center"
           padding={5}
         >
-          <Box mb={2}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => setOpen(true)}
-              style={{
-                fontWeight: "800",
-              }}
-            >
-              Add Stats
-            </Button>
-          </Box>
-          <AddStatsModal
-            open={open}
-            onClose={() => setOpen(false)}
-            onSubmit={() => console.log("nothing for now")}
-            playerId={player.id}
-          />
           <Box
             display="flex"
             flexDirection={{ xs: "column", sm: "row" }} // Vertical on small and below, horizontal on medium and above
@@ -179,7 +157,7 @@ export default function ProfileTabs({ player }: { player: any }) {
               </CardContent>
             </Card>
           </Box>
-          <StatsTable playerId={player.id} />
+          <StatsTable player={player} />
         </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
