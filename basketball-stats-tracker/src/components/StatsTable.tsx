@@ -7,6 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { useState, useEffect } from "react";
+import { getPlayerStats } from "@/services/players";
 
 interface Column {
   id: "date" | "points" | "assists" | "rebounds";
@@ -23,34 +25,21 @@ const columns: readonly Column[] = [
   { id: "rebounds", label: "Rebounds", minWidth: 50, align: "right" },
 ];
 
-interface Data {
-  date: string;
-  points: number;
-  assists: number;
-  rebounds: number;
-}
+export default function StatsTable({ playerId }: { playerId: number }) {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-function createData(
-  date: string,
-  points: number,
-  assists: number,
-  rebounds: number,
-): Data {
-  return { date, points, assists, rebounds };
-}
+  const [playerStats, setPlayerStats] = useState<any>([]);
 
-const rows = [
-  createData("2023-10-01", 25, 5, 7),
-  createData("2023-10-02", 28, 6, 9),
-  createData("2023-10-03", 30, 8, 10),
-  // ... add more data here
-];
-
-// ... (rest of the imports)
-
-export default function StatsTable() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  useEffect(() => {
+    const fetchPlayerStats = async (playerId: number) => {
+      const stats = await getPlayerStats(playerId);
+      if (stats) {
+        setPlayerStats(stats);
+      }
+    };
+    fetchPlayerStats(playerId);
+  }, []);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -89,11 +78,16 @@ export default function StatsTable() {
           </TableHead>
 
           <TableBody>
-            {rows
+            {playerStats
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+              .map((row: { [x: string]: any }) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.date}>
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={playerStats.date}
+                  >
                     {columns.map((column, index) => {
                       const value = row[column.id];
                       return (
@@ -120,7 +114,7 @@ export default function StatsTable() {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={playerStats.length ?? 0}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

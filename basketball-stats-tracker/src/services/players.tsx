@@ -46,3 +46,18 @@ export async function addPlayer(data: any) {
     console.error("There was a problem with the fetch operation: ", error);
   }
 }
+
+export async function getPlayerStats(playerId: number) {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/player-stats/player/${playerId}`,
+    );
+    if (!response.ok) {
+      throw new Error("Network reponse was not ok");
+    }
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("There was a problem with the fetch operation: ", error);
+  }
+}
