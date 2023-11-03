@@ -83,28 +83,26 @@ export default function StatsTable({ player }: { player: any }) {
           <TableBody>
             {playerStats
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row: { [x: string]: any }, index: number) => {
+              .map((row: { [x: string]: any }) => {
                 return (
                   <TableRow
                     hover
                     role="checkbox"
                     tabIndex={-1}
-                    key={playerStats[index].date}
+                    key={row.id} // It's better to use a unique id for the key if available
                   >
-                    {columns.map((column, index) => {
+                    {columns.map((column) => {
                       const value = row[column.id];
+                      const date =
+                        column.id === "date" &&
+                        new Date(value).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        });
                       return (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          style={{
-                            paddingRight:
-                              index === columns.length - 1 ? "50px" : undefined, // Add padding to the last column
-                          }}
-                        >
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                        <TableCell key={column.id} align={column.align}>
+                          {column.id === "date" ? date : value}
                         </TableCell>
                       );
                     })}
