@@ -79,19 +79,15 @@ export default function Home() {
             </Typography>
           </Box>
         ) : (
-          <Box
-            display="flex"
-            flexDirection="row"
-            flexWrap="wrap"
-            justifyContent="center"
-            mx={-2}
-          >
+          <Grid container spacing={5}>
             {players.map((player: any, index: Key | null | undefined) => (
-              <Box key={index} m={2}>
-                <PlayerCard player={player} />
-              </Box>
+              <Grid item key={index} xs={12} sm={12} md={6} lg={4}>
+                <Box mb={2}>
+                  <PlayerCard player={player} />
+                </Box>
+              </Grid>
             ))}
-          </Box>
+          </Grid>
         )}
       </Container>
       <PlayerModal
