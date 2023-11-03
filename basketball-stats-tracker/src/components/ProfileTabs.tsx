@@ -100,7 +100,6 @@ export default function ProfileTabs({ player }: { player: any }) {
             justifyContent="center"
             marginBottom={5}
           >
-            <PlayerInformationCard player={player} />
             <Card
               elevation={3}
               sx={{
@@ -108,7 +107,7 @@ export default function ProfileTabs({ player }: { player: any }) {
                 maxWidth: { sm: 400 }, // Responsive width
                 marginTop: 2,
                 marginBottom: { xs: 2, sm: 0 }, // Margin at bottom for small screens
-                marginLeft: { xs: 0, sm: 3 }, // Margin left only for screens bigger than small
+                marginRight: { xs: 0, sm: 3 }, // Margin left only for screens bigger than small
                 height: 200,
               }}
             >
@@ -166,6 +165,7 @@ export default function ProfileTabs({ player }: { player: any }) {
                 </Box>
               </CardContent>
             </Card>
+            <PlayerInformationCard player={player} />
           </Box>
           <StatsTable player={player} />
         </Box>
