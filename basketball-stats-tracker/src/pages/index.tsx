@@ -74,7 +74,7 @@ export default function Home() {
         </Box>
         {players.length === 0 ? (
           <Box display="flex" flexDirection="column" alignItems="center">
-            <Typography variant="h6" marginTop={20}>
+            <Typography variant="h6" marginTop={10}>
               No players have been added yet.
             </Typography>
           </Box>
@@ -84,10 +84,10 @@ export default function Home() {
             flexDirection="row"
             flexWrap="wrap"
             justifyContent="center"
-            mx={-5}
+            mx={-2}
           >
             {players.map((player: any, index: Key | null | undefined) => (
-              <Box key={index} m={5}>
+              <Box key={index} m={2}>
                 <PlayerCard player={player} />
               </Box>
             ))}

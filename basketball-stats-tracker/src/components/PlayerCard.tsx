@@ -16,27 +16,15 @@ export default function PlayerCard({ player }: { player: any }) {
         textDecoration: "none",
       }}
     >
-      <Card sx={{ display: "flex", maxWidth: 600 }}>
-        {" "}
-        {/* Update here */}
+      <Card>
         <CardActionArea sx={{ display: "flex", flexDirection: "row" }}>
-          {" "}
-          {/* Update here */}
           <CardMedia
             component="img"
             sx={{ width: 180 }} // Adjust the image width as needed
             image="./images/player_placeholder.png"
             alt="Player Image"
           />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            {" "}
-            {/* Add this */}
+          <Box>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {player.firstName} {player.lastName}

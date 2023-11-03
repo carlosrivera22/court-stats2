@@ -23,7 +23,7 @@ export default function Navbar() {
           <HomeIcon />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Court Stats
+          Full Court Metrics
         </Typography>
         <Button color="inherit">Login</Button>
       </Toolbar>
