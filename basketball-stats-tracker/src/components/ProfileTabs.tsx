@@ -53,12 +53,6 @@ export default function ProfileTabs({ player }: { player: any }) {
 
   const [open, setOpen] = useState(false);
 
-  const handleAddData = (data: any) => {
-    // Logic to save data (e.g., update the 'rows' array)
-    // For now, just console.log the data
-    console.log(data);
-  };
-
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -105,7 +99,8 @@ export default function ProfileTabs({ player }: { player: any }) {
           <AddStatsModal
             open={open}
             onClose={() => setOpen(false)}
-            onSubmit={handleAddData}
+            onSubmit={() => console.log("nothing for now")}
+            playerId={player.id}
           />
           <Box
             display="flex"
@@ -184,7 +179,7 @@ export default function ProfileTabs({ player }: { player: any }) {
               </CardContent>
             </Card>
           </Box>
-          <StatsTable />
+          <StatsTable playerId={player.id} />
         </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>

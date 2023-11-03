@@ -8,14 +8,21 @@ import {
   Button,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
+import { addPlayerStats } from "@/services/players";
 
 interface Props {
   open: boolean;
+  playerId: number;
   onClose: () => void;
-  onSubmit: (data: any) => void;
+  onSubmit: () => void;
 }
 
-export default function AddStatsModal({ open, onClose, onSubmit }: Props) {
+export default function AddStatsModal({
+  open,
+  playerId,
+  onClose,
+  onSubmit,
+}: Props) {
   const [formData, setFormData] = React.useState({
     date: "",
     points: "",
@@ -27,8 +34,9 @@ export default function AddStatsModal({ open, onClose, onSubmit }: Props) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    onSubmit(formData);
+  const handleSubmit = async () => {
+    await addPlayerStats(playerId, formData);
+    onSubmit();
     onClose();
   };
 

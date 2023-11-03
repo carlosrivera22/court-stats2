@@ -80,13 +80,13 @@ export default function StatsTable({ playerId }: { playerId: number }) {
           <TableBody>
             {playerStats
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row: { [x: string]: any }) => {
+              .map((row: { [x: string]: any }, index: number) => {
                 return (
                   <TableRow
                     hover
                     role="checkbox"
                     tabIndex={-1}
-                    key={playerStats.date}
+                    key={playerStats[index].date}
                   >
                     {columns.map((column, index) => {
                       const value = row[column.id];
