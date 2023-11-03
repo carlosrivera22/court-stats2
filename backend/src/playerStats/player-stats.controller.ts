@@ -19,4 +19,9 @@ export class PlayerStatsController {
     const data = { ...createPlayerStatsDto, playerId };
     return await this.playerStatsService.create(data);
   }
+
+  @Get("/player/:playerId/averages")
+  async getPlayerStatsAverages(@Param("playerId") playerId: number) {
+    return await this.playerStatsService.findAveragesByPlayerId(playerId);
+  }
 }

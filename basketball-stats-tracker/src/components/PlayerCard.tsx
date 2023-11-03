@@ -5,8 +5,21 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { getPlayerAverages } from "@/services/players";
 
 export default function PlayerCard({ player }: { player: any }) {
+  const [averages, setAverages] = useState<any>();
+
+  useEffect(() => {
+    const fetchAverages = async () => {
+      const averages = await getPlayerAverages(player.id);
+      setAverages(averages);
+    };
+    fetchAverages();
+  }, []);
+
+  if (!averages) return null;
   return (
     <Link
       href={`/player/${player.id}`}
@@ -15,9 +28,7 @@ export default function PlayerCard({ player }: { player: any }) {
         textDecoration: "none",
       }}
     >
-      <Card sx={{ maxWidth: 450, margin: "auto" }}>
-        {" "}
-        {/* Adjust max width as needed */}
+      <Card sx={{ maxWidth: 450, margin: "auto", maxHeight: 150, width: 390 }}>
         <CardActionArea sx={{ display: "flex", flexDirection: "row" }}>
           <CardMedia
             component="img"
@@ -29,20 +40,16 @@ export default function PlayerCard({ player }: { player: any }) {
             sx={{ "&:last-child": { paddingBottom: "16px" }, flex: "1" }}
           >
             <Typography gutterBottom variant="h6" component="div">
-              {" "}
-              {/* Smaller variant */}
               {player.firstName} {player.lastName}
             </Typography>
             <Typography variant="body2" fontWeight={"600"}>
-              {" "}
-              {/* Smaller variant */}
-              Points Per Game (PPG): {player.ppg}
+              Points Per Game (PPG): {averages.ppg}
             </Typography>
             <Typography variant="body2" fontWeight={"600"}>
-              Assists Per Game (APG): {player.apg}
+              Assists Per Game (APG): {averages.apg}
             </Typography>
             <Typography variant="body2" fontWeight={"600"}>
-              Rebounds Per Game (RPG): {player.rpg}
+              Rebounds Per Game (RPG): {averages.rpg}
             </Typography>
           </CardContent>
         </CardActionArea>

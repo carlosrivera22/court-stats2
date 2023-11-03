@@ -29,7 +29,7 @@ export default function Home() {
           display="flex"
           flexDirection="column"
           alignItems="center"
-          marginTop={5}
+          marginTop={15}
           minHeight="30vh"
         >
           <img
@@ -79,10 +79,10 @@ export default function Home() {
             </Typography>
           </Box>
         ) : (
-          <Grid container spacing={5}>
+          <Grid container spacing={7} mt={1} mb={15}>
             {players.map((player: any, index: Key | null | undefined) => (
               <Grid item key={index} xs={12} sm={12} md={6} lg={4}>
-                <Box mb={2}>
+                <Box>
                   <PlayerCard player={player} />
                 </Box>
               </Grid>
