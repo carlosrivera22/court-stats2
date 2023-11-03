@@ -1,41 +1,22 @@
 import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Player, PlayersService } from "./players.service";
 
 @Controller("players")
 export class PlayersController {
+  constructor(private playersService: PlayersService) {}
+
   @Get()
-  getPlayers(): string {
-    return JSON.stringify([
-      {
-        id: `Player 1`,
-        firstName: "John",
-        lastName: "Doe",
-        ppg: 24.1,
-        apg: 6.3,
-        rpg: 5.5,
-        birthDate: "1995-01-15",
-        hometown: "Los Angeles",
-        age: 28,
-      },
-    ]);
+  getPlayers() {
+    return this.playersService.findAll();
   }
 
   @Get("/:id")
-  getPlayer(@Param("id") id: string): string {
-    return JSON.stringify({
-      id: `Player ${id}`,
-      firstName: "John",
-      lastName: "Doe",
-      ppg: 24.1,
-      apg: 6.3,
-      rpg: 5.5,
-      birthDate: "1995-01-15",
-      hometown: "Los Angeles",
-      age: 28,
-    });
+  getPlayer(@Param("id") id: string) {
+    return this.playersService.findById(id);
   }
 
   @Post()
-  createPlayer(@Body() data: any): any {
-    return data;
+  createPlayer(@Body() playerData: Omit<Player, "id">) {
+    return this.playersService.create(playerData);
   }
 }
