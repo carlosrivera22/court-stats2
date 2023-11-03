@@ -8,6 +8,8 @@ import StatsTable from "./StatsTable";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import GroupIcon from "@mui/icons-material/Group";
+import { useEffect, useState } from "react";
+import { getPlayerAverages } from "@/services/players";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -43,11 +45,20 @@ function a11yProps(index: number) {
 }
 
 export default function ProfileTabs({ player }: { player: any }) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [averages, setAverages] = useState<any>([]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    const fetchAverages = async () => {
+      const averages = await getPlayerAverages(player.id);
+      setAverages(averages);
+    };
+    fetchAverages();
+  }, []);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -136,13 +147,13 @@ export default function ProfileTabs({ player }: { player: any }) {
                     style={{ marginRight: 10 }}
                   />
                   <Typography variant="body1">
-                    Points Per Game (PPG): {player.ppg}
+                    Points Per Game (PPG): {averages.ppg}
                   </Typography>
                 </Box>
                 <Box display="flex" alignItems="center" marginBottom={2}>
                   <GroupIcon color="primary" style={{ marginRight: 10 }} />
                   <Typography variant="body1">
-                    Assists Per Game (APG): {player.apg}
+                    Assists Per Game (APG): {averages.apg}
                   </Typography>
                 </Box>
                 <Box display="flex" alignItems="center" marginBottom={2}>
@@ -151,7 +162,7 @@ export default function ProfileTabs({ player }: { player: any }) {
                     style={{ marginRight: 10 }}
                   />
                   <Typography variant="body1">
-                    Rebounds Per Game (RPG): {player.rpg}
+                    Rebounds Per Game (RPG): {averages.rpg}
                   </Typography>
                 </Box>
               </CardContent>
