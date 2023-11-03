@@ -137,32 +137,55 @@ export default function ProfileTabs({ player }: { player: any }) {
               }}
             >
               <CardContent>
-                {" "}
                 <Typography variant="h6" gutterBottom marginBottom={2}>
                   Player Stats
                 </Typography>
+
                 <Box display="flex" alignItems="center" marginBottom={2}>
                   <SportsBasketballIcon
                     color="primary"
-                    style={{ marginRight: 10 }}
+                    style={{ marginRight: "10px" }}
                   />
-                  <Typography variant="body1">
-                    Points Per Game (PPG): {averages.ppg}
+                  <Typography variant="body1" style={{ marginRight: "5px" }}>
+                    Points Per Game (PPG):
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="secondary"
+                    fontWeight="800"
+                  >
+                    {averages.ppg}
                   </Typography>
                 </Box>
+
                 <Box display="flex" alignItems="center" marginBottom={2}>
-                  <GroupIcon color="primary" style={{ marginRight: 10 }} />
-                  <Typography variant="body1">
-                    Assists Per Game (APG): {averages.apg}
+                  <GroupIcon color="primary" style={{ marginRight: "10px" }} />
+                  <Typography variant="body1" style={{ marginRight: "5px" }}>
+                    Assists Per Game (APG):
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="secondary"
+                    fontWeight="800"
+                  >
+                    {averages.apg}
                   </Typography>
                 </Box>
+
                 <Box display="flex" alignItems="center" marginBottom={2}>
                   <EmojiPeopleIcon
                     color="primary"
-                    style={{ marginRight: 10 }}
+                    style={{ marginRight: "10px" }}
                   />
-                  <Typography variant="body1">
-                    Rebounds Per Game (RPG): {averages.rpg}
+                  <Typography variant="body1" style={{ marginRight: "5px" }}>
+                    Rebounds Per Game (RPG):
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="secondary"
+                    fontWeight="800"
+                  >
+                    {averages.rpg}
                   </Typography>
                 </Box>
               </CardContent>
