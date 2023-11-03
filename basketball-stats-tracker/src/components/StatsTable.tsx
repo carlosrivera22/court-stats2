@@ -56,67 +56,86 @@ export default function StatsTable({ player }: { player: any }) {
   };
 
   return (
-    <>
-      <Paper
-        sx={{ width: { xs: "100%", md: "70%", lg: "70%" }, overflow: "hidden" }}
-      >
-        <TableContainer sx={{ maxHeight: 440 }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column, index) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{
-                      minWidth: column.minWidth,
-                      paddingRight:
-                        index === columns.length - 1 ? "50px" : undefined, // Add padding to the last column
-                    }}
-                    sx={{ backgroundColor: "#f0f0f0" }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
+    <Paper
+      sx={{ width: { xs: "100%", md: "70%", lg: "70%" }, overflow: "hidden" }}
+    >
+      <TableContainer sx={{ maxHeight: 440 }}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow>
+              {columns.map((column, index) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{
+                    minWidth: column.minWidth,
+                    paddingRight:
+                      index === columns.length - 1 ? "50px" : undefined, // Add padding to the last column
+                  }}
+                  sx={{ backgroundColor: "#f0f0f0" }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
 
-            <TableBody>
-              {playerStats
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row: { [x: string]: any }, index: number) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={playerStats[index].date}
-                    >
-                      {columns.map((column, index) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell
-                            key={column.id}
-                            align={column.align}
-                            style={{
-                              paddingRight:
-                                index === columns.length - 1
-                                  ? "50px"
-                                  : undefined, // Add padding to the last column
-                            }}
-                          >
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+          <TableBody>
+            {playerStats
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row: { [x: string]: any }, index: number) => {
+                return (
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={playerStats[index].date}
+                  >
+                    {columns.map((column, index) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          style={{
+                            paddingRight:
+                              index === columns.length - 1 ? "50px" : undefined, // Add padding to the last column
+                          }}
+                        >
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginTop: "15px",
+          marginBottom: "15px",
+        }}
+      >
+        <Button
+          size="small"
+          variant="contained"
+          color="primary"
+          onClick={() => setOpen(true)}
+          style={{
+            fontWeight: "800",
+            marginLeft: "15px",
+          }}
+        >
+          Add Stats
+        </Button>
+
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
@@ -126,25 +145,14 @@ export default function StatsTable({ player }: { player: any }) {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-        <AddStatsModal
-          open={open}
-          onClose={() => setOpen(false)}
-          onSubmit={() => fetchPlayerStats(player.id)}
-          playerId={player.id}
-        />
-      </Paper>
-      <Box mb={2} mt={5}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setOpen(true)}
-          style={{
-            fontWeight: "800",
-          }}
-        >
-          Add Stats
-        </Button>
       </Box>
-    </>
+
+      <AddStatsModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onSubmit={() => fetchPlayerStats(player.id)}
+        playerId={player.id}
+      />
+    </Paper>
   );
 }
