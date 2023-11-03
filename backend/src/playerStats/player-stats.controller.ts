@@ -12,7 +12,11 @@ export class PlayerStatsController {
   }
 
   @Post("/player/:playerId")
-  async createPlayerStats(@Body() CreatePlayerStatsDto: CreatePlayerStatsDto) {
-    return await this.playerStatsService.create(CreatePlayerStatsDto);
+  async createPlayerStats(
+    @Param("playerId") playerId,
+    @Body() createPlayerStatsDto: CreatePlayerStatsDto,
+  ) {
+    const data = { ...createPlayerStatsDto, playerId };
+    return await this.playerStatsService.create(data);
   }
 }

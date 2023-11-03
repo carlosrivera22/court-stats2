@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -23,12 +23,7 @@ export default function AddStatsModal({
   onClose,
   onSubmit,
 }: Props) {
-  const [formData, setFormData] = React.useState({
-    date: "",
-    points: "",
-    assists: "",
-    rebounds: "",
-  });
+  const [formData, setFormData] = useState({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -44,7 +39,13 @@ export default function AddStatsModal({
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Add Stats</DialogTitle>
       <DialogContent>
-        <DatePicker sx={{ width: "100%" }} />
+        <DatePicker
+          sx={{ width: "100%" }}
+          onChange={(value) => {
+            console.log("VALUE: ", value);
+            setFormData({ ...formData, date: value });
+          }}
+        />
 
         <TextField
           margin="dense"
