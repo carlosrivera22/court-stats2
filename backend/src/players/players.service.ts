@@ -1,47 +1,23 @@
+// players.service.ts
 import { Injectable } from "@nestjs/common";
-
-export type Player = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-  hometown: string;
-  age: number;
-};
+import { PlayersRepository, Player } from "./players.repository";
 
 @Injectable()
 export class PlayersService {
-  private players: Player[] = [
-    // This would typically come from a database
-    {
-      id: "1",
-      firstName: "John",
-      lastName: "Doe",
-      birthDate: "1995-01-15",
-      hometown: "Los Angeles",
-      age: 28,
-    },
-  ];
+  constructor(private playersRepository: PlayersRepository) {}
 
-  findAll(): Player[] {
-    return this.players;
+  async findAll(): Promise<Player[]> {
+    return this.playersRepository.findAll();
   }
 
-  findById(id: string): Player | undefined {
-    return this.players.find((player) => player.id === id);
+  async findById(id: string): Promise<Player | undefined> {
+    return this.playersRepository.findById(id);
   }
 
-  create(playerData: Omit<Player, "id">): Player {
-    const newPlayer: Player = {
-      id: this.generateId(),
-      ...playerData,
-    };
-    this.players.push(newPlayer);
-    return newPlayer;
+  async create(playerData: Omit<Player, "id">): Promise<Player> {
+    return this.playersRepository.create(playerData);
   }
 
-  private generateId(): string {
-    // A simple method to generate a unique ID for each player
-    return (this.players.length + 1).toString();
-  }
+  // Add additional service methods as needed
 }
+export { Player };

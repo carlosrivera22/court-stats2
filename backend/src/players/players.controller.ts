@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post } from "@nestjs/common";
-import { Player, PlayersService } from "./players.service";
+import { PlayersService } from "./players.service";
+import { Player } from "./players.repository";
 
 @Controller("players")
 export class PlayersController {
