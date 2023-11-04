@@ -3,7 +3,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useState } from "react";
 import EditPlayerInformationModal from "./EditPlayerInformationModal";
 
-export default function PlayerInformationCard({ player }: { player: any }) {
+export default function PlayerInformationCard({
+  player,
+  onUpdate,
+}: {
+  player: any;
+  onUpdate: () => void;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -76,7 +82,7 @@ export default function PlayerInformationCard({ player }: { player: any }) {
         open={open}
         playerId={player.id}
         onClose={() => setOpen(false)}
-        onSubmit={() => console.log("not implemented yet")}
+        onSubmit={onUpdate}
       />
     </>
   );

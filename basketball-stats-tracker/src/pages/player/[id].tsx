@@ -8,20 +8,18 @@ const PlayerProfilePage = () => {
   const router = useRouter();
   const { id } = router.query;
   const [player, setPlayer] = useState<any>(null);
+  const getPlayerById = async (playerId: number) => {
+    const data = await getPlayer(playerId);
+    setPlayer(data); // Set the player data directly here
+  };
 
   useEffect(() => {
-    // Moved the function inside the useEffect to avoid unnecessary redeclarations
-    const getPlayerById = async (playerId: number) => {
-      const data = await getPlayer(playerId);
-      setPlayer(data); // Set the player data directly here
-    };
-
     if (id) {
       getPlayerById(parseInt(id.toString()));
     }
   }, [id]);
 
-  if (!player) return null; // Add a loading state or some placeholder if the data isn't fetched yet
+  if (!player) return null;
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" padding={5}>
@@ -35,7 +33,8 @@ const PlayerProfilePage = () => {
       <Typography variant="h6" gutterBottom>
         ID: {player.id}
       </Typography>
-      <ProfileTabs player={player} />
+      {/* monitor prop drilling */}
+      <ProfileTabs player={player} refetchPlayer={getPlayerById} />
     </Box>
   );
 };

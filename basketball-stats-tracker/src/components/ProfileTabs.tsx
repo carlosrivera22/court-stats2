@@ -45,7 +45,13 @@ function a11yProps(index: number) {
   };
 }
 
-export default function ProfileTabs({ player }: { player: any }) {
+export default function ProfileTabs({
+  player,
+  refetchPlayer,
+}: {
+  player: any;
+  refetchPlayer: (playerId: number) => void;
+}) {
   const [value, setValue] = useState(0);
   const [averages, setAverages] = useState<any>([]);
 
@@ -165,7 +171,10 @@ export default function ProfileTabs({ player }: { player: any }) {
                 </Box>
               </CardContent>
             </Card>
-            <PlayerInformationCard player={player} />
+            <PlayerInformationCard
+              player={player}
+              onUpdate={() => refetchPlayer(player.id)}
+            />
           </Box>
           <StatsTable player={player} />
         </Box>
