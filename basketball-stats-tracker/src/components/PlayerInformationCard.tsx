@@ -59,13 +59,15 @@ export default function PlayerInformationCard({
             <Typography variant="body1" marginRight={1}>
               Birth Date:
             </Typography>
-            <Typography variant="body1" color="secondary" fontWeight="800">
-              {new Date(player.birthDate).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </Typography>
+            {player.birthDate && (
+              <Typography variant="body1" color="secondary" fontWeight="800">
+                {new Date(player.birthDate).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </Typography>
+            )}
           </Box>
 
           <Box display="flex" alignItems="center" marginBottom={2}>
@@ -80,7 +82,7 @@ export default function PlayerInformationCard({
       </Card>
       <EditPlayerInformationModal
         open={open}
-        playerId={player.id}
+        player={player}
         onClose={() => setOpen(false)}
         onSubmit={onUpdate}
       />

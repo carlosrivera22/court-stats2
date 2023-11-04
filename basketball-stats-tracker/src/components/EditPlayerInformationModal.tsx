@@ -8,28 +8,34 @@ import {
   Button,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
+import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 
 interface Props {
   open: boolean;
-  playerId: number;
+  player: any;
   onClose: () => void;
   onSubmit: () => void;
 }
 export default function EditPlayerInformationModal({
   open,
-  playerId,
+  player,
   onClose,
   onSubmit,
 }: Props) {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<{
+    birthDate: Dayjs | null;
+    homeTown: string | null;
+  }>({
+    birthDate: player.birthDate ? dayjs(new Date(player.birthDate)) : null,
+    homeTown: player.homeTown ?? null,
+  });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log("formData", formData);
   };
 
   const handleSubmit = async () => {
-    await updatePlayer(playerId, formData);
+    await updatePlayer(player.id, formData);
     await onSubmit();
     onClose();
   };
@@ -40,19 +46,23 @@ export default function EditPlayerInformationModal({
       <DialogContent>
         <DatePicker
           label="Birth Date"
-          sx={{ width: "100%" }}
+          sx={{ width: "100%", marginTop: 2 }}
           onChange={(value) => {
-            setFormData({ ...formData, birthDate: value });
+            if (value) {
+              setFormData({ ...formData, birthDate: dayjs(value) });
+            }
           }}
+          defaultValue={formData.birthDate ? dayjs(formData.birthDate) : null}
         />
-
         <TextField
+          sx={{ marginTop: 5 }}
           margin="dense"
           name="homeTown"
           label="Hometown"
           type="text"
           fullWidth
           onChange={handleChange}
+          value={formData.homeTown}
         />
       </DialogContent>
       <DialogActions>
