@@ -27,7 +27,13 @@ const columns: readonly Column[] = [
   { id: "rebounds", label: "Rebounds", minWidth: 50, align: "right" },
 ];
 
-export default function StatsTable({ player }: { player: any }) {
+export default function StatsTable({
+  player,
+  onUpdate,
+}: {
+  player: any;
+  onUpdate: () => void;
+}) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -147,8 +153,13 @@ export default function StatsTable({ player }: { player: any }) {
 
       <AddStatsModal
         open={open}
-        onClose={() => setOpen(false)}
-        onSubmit={() => fetchPlayerStats(player.id)}
+        onClose={() => {
+          setOpen(false);
+        }}
+        onSubmit={async () => {
+          fetchPlayerStats(player.id);
+          onUpdate();
+        }}
         playerId={player.id}
       />
     </Paper>

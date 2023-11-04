@@ -59,11 +59,12 @@ export default function ProfileTabs({
     setValue(newValue);
   };
 
+  const fetchAverages = async () => {
+    const averages = await getPlayerAverages(player.id);
+    setAverages(averages);
+  };
+
   useEffect(() => {
-    const fetchAverages = async () => {
-      const averages = await getPlayerAverages(player.id);
-      setAverages(averages);
-    };
     fetchAverages();
   }, []);
 
@@ -176,7 +177,7 @@ export default function ProfileTabs({
               onUpdate={() => refetchPlayer(player.id)}
             />
           </Box>
-          <StatsTable player={player} />
+          <StatsTable player={player} onUpdate={() => fetchAverages()} />
         </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>

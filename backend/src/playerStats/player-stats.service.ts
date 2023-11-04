@@ -30,15 +30,24 @@ export class PlayerStatsService {
       return { ppg: 0, rpg: 0, apg: 0 };
     }
 
-    const ppg =
-      playerStats.reduce((acc, cur) => acc + cur.points, 0) /
-      playerStats.length;
-    const rpg =
-      playerStats.reduce((acc, cur) => acc + cur.rebounds, 0) /
-      playerStats.length;
-    const apg =
-      playerStats.reduce((acc, cur) => acc + cur.assists, 0) /
-      playerStats.length;
+    const ppg = parseFloat(
+      (
+        playerStats.reduce((acc, cur) => acc + cur.points, 0) /
+        playerStats.length
+      ).toFixed(1),
+    );
+    const rpg = parseFloat(
+      (
+        playerStats.reduce((acc, cur) => acc + cur.rebounds, 0) /
+        playerStats.length
+      ).toFixed(1),
+    );
+    const apg = parseFloat(
+      (
+        playerStats.reduce((acc, cur) => acc + cur.assists, 0) /
+        playerStats.length
+      ).toFixed(1),
+    );
 
     const averages = { ppg, rpg, apg };
     return averages;
