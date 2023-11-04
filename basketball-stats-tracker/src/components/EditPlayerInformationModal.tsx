@@ -49,7 +49,7 @@ export default function EditPlayerInformationModal({
           sx={{ width: "100%", marginTop: 2 }}
           onChange={(value) => {
             if (value) {
-              setFormData({ ...formData, birthDate: dayjs(value) });
+              setFormData({ ...formData, birthDate: value });
             }
           }}
           defaultValue={formData.birthDate ? dayjs(formData.birthDate) : null}
