@@ -40,20 +40,36 @@ export default function PlayerInformationCard({ player }: { player: any }) {
               <EditIcon />
             </IconButton>
           </Box>
-          <Typography variant="body1" marginBottom={2}>
-            Age: {player.age}
-          </Typography>
-          <Typography variant="body1" marginBottom={2}>
-            Birth Date:{" "}
-            {new Date(player.birthDate).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </Typography>
-          <Typography variant="body1" marginBottom={2}>
-            Hometown: {player.homeTown}
-          </Typography>
+          <Box display="flex" alignItems="center" marginBottom={2}>
+            <Typography variant="body1" marginRight={1}>
+              Age:
+            </Typography>
+            <Typography variant="body1" color="secondary" fontWeight="800">
+              {player.age}
+            </Typography>
+          </Box>
+
+          <Box display="flex" alignItems="center" marginBottom={2}>
+            <Typography variant="body1" marginRight={1}>
+              Birth Date:
+            </Typography>
+            <Typography variant="body1" color="secondary" fontWeight="800">
+              {new Date(player.birthDate).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </Typography>
+          </Box>
+
+          <Box display="flex" alignItems="center" marginBottom={2}>
+            <Typography variant="body1" marginRight={1}>
+              Hometown:
+            </Typography>
+            <Typography variant="body1" color="secondary" fontWeight="800">
+              {player.homeTown}
+            </Typography>
+          </Box>
         </CardContent>
       </Card>
       <EditPlayerInformationModal
