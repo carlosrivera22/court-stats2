@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { PlayersService } from "./players.service";
 import { Player } from "./players.repository";
 
@@ -7,8 +7,12 @@ export class PlayersController {
   constructor(private playersService: PlayersService) {}
 
   @Get()
-  getPlayers() {
-    return this.playersService.findAll();
+  getPlayers(
+    @Query("page") page: number = 1,
+    @Query("limit") limit: number = 6,
+  ): Promise<Player[]> {
+    limit = Math.min(100, limit);
+    return this.playersService.findAll(page, limit);
   }
 
   @Get("/:id")

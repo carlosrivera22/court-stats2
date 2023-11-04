@@ -6,8 +6,11 @@ import { PlayersRepository, Player } from "./players.repository";
 export class PlayersService {
   constructor(private playersRepository: PlayersRepository) {}
 
-  async findAll(): Promise<Player[]> {
-    return this.playersRepository.findAll();
+  async findAll(page: number = 1, limit: number = 10): Promise<Player[]> {
+    const offset = (page - 1) * limit;
+    const data = await this.playersRepository.findAll({ limit, offset });
+
+    return data;
   }
 
   async findById(id: number): Promise<Player | undefined> {
