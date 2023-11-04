@@ -10,7 +10,7 @@ export class PlayersController {
   getPlayers(
     @Query("page") page: number = 1,
     @Query("limit") limit: number = 6,
-  ): Promise<Player[]> {
+  ): Promise<{ data: Player[]; total: number; page: number; limit: number }> {
     limit = Math.min(100, limit);
     return this.playersService.findAll(page, limit);
   }

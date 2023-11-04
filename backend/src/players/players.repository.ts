@@ -11,11 +11,8 @@ export interface Player {
 
 @Injectable()
 export class PlayersRepository {
-  async findAll(options: { limit: number; offset: number }): Promise<Player[]> {
-    return db("players")
-      .select("*")
-      .limit(options.limit)
-      .offset(options.offset);
+  async findAll(limit: number, offset: number): Promise<Player[]> {
+    return db("players").select("*").limit(limit).offset(offset);
   }
 
   async findById(id: number): Promise<Player | undefined> {

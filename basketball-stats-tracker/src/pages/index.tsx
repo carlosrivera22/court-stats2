@@ -73,7 +73,7 @@ export default function Home() {
             </Grid>
           </Box>
         </Box>
-        {players.length === 0 ? (
+        {players.data.length === 0 ? (
           <Box display="flex" flexDirection="column" alignItems="center">
             <Typography variant="h6" marginTop={10}>
               No players have been added yet.
@@ -81,7 +81,7 @@ export default function Home() {
           </Box>
         ) : (
           <Grid container spacing={7} mt={1} mb={10}>
-            {players.map((player: any, index: Key | null | undefined) => (
+            {players.data.map((player: any, index: Key | null | undefined) => (
               <Grid item key={index} xs={12} sm={12} md={6} lg={4}>
                 <Box>
                   <PlayerCard player={player} />
@@ -92,7 +92,7 @@ export default function Home() {
         )}
         <Box display="flex" justifyContent="center" mb={10}>
           <Pagination
-            // count={totalPages}
+            count={players.totalPages}
             // page={currentPage}
             // onChange={handlePageChange}
             variant="outlined"

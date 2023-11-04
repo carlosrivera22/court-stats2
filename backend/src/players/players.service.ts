@@ -1,16 +1,36 @@
 // players.service.ts
 import { Injectable } from "@nestjs/common";
 import { PlayersRepository, Player } from "./players.repository";
+import db from "src/database";
 
 @Injectable()
 export class PlayersService {
   constructor(private playersRepository: PlayersRepository) {}
 
-  async findAll(page: number = 1, limit: number = 10): Promise<Player[]> {
+  async findAll(
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<{
+    data: Player[];
+    total: number;
+    totalPages: number;
+    page: number;
+    limit: number;
+  }> {
     const offset = (page - 1) * limit;
-    const data = await this.playersRepository.findAll({ limit, offset });
+    const data = await this.playersRepository.findAll(limit, offset);
 
-    return data;
+    // Assuming `count` returns an object with a single property `count` that is the total number of players
+    const total = (await db("players").count("* as count").first())?.count || 0;
+    const totalPages = Math.ceil(total / limit); // Calculate total pages
+
+    return {
+      data: data,
+      total: total,
+      totalPages: totalPages,
+      page,
+      limit,
+    };
   }
 
   async findById(id: number): Promise<Player | undefined> {

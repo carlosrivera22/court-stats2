@@ -30,9 +30,6 @@ const PlayerProfilePage = () => {
       <Typography variant="h4" gutterBottom>
         {player.firstName} {player.lastName}
       </Typography>
-      <Typography variant="h6" gutterBottom>
-        ID: {player.id}
-      </Typography>
       {/* monitor prop drilling */}
       <ProfileTabs player={player} refetchPlayer={getPlayerById} />
     </Box>
