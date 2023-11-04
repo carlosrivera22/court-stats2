@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { addPlayer } from "@/services/players";
+import { useRouter } from "next/router";
 
 interface PlayerModalProps {
   open: boolean;
@@ -24,13 +25,19 @@ const PlayerModal: React.FC<PlayerModalProps> = ({
 }) => {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
+  const router = useRouter(); // Initialize the router
 
   const handleSave = async () => {
-    await addPlayer({ firstName, lastName });
+    const newPlayer = await addPlayer({ firstName, lastName });
     await onSubmit();
     setFirstName("");
     setLastName("");
     onClose();
+    // Assuming addPlayer returns the added player object including an id
+    // Now navigate to the player route, for example 'player/123'
+    if (newPlayer && newPlayer.id) {
+      router.push(`/player/${newPlayer.id}`);
+    }
   };
 
   return (
