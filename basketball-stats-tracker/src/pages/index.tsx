@@ -21,6 +21,10 @@ export default function Home() {
 
   const [isModalOpen, setModalOpen] = useState(false);
 
+  const handlePageChange = (event: any, value: any) => {
+    alert(value);
+  };
+
   if (!players) return null; // Add a loading state or some placeholder if the data isn't fetched yet
 
   return (
@@ -94,7 +98,7 @@ export default function Home() {
           <Pagination
             count={players.totalPages}
             // page={currentPage}
-            // onChange={handlePageChange}
+            onChange={handlePageChange}
             variant="outlined"
             color="secondary"
           />
