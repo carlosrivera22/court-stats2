@@ -5,6 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import PlayerCard from "@/components/PlayerCard";
 import PlayerModal from "@/components/PlayerModal";
 import { getPlayers } from "@/services/players";
+import Pagination from "@mui/material/Pagination";
 
 export default function Home() {
   const [players, setPlayers] = useState<any>(null);
@@ -79,7 +80,7 @@ export default function Home() {
             </Typography>
           </Box>
         ) : (
-          <Grid container spacing={7} mt={1} mb={15}>
+          <Grid container spacing={7} mt={1} mb={10}>
             {players.map((player: any, index: Key | null | undefined) => (
               <Grid item key={index} xs={12} sm={12} md={6} lg={4}>
                 <Box>
@@ -89,7 +90,17 @@ export default function Home() {
             ))}
           </Grid>
         )}
+        <Box display="flex" justifyContent="center" mb={10}>
+          <Pagination
+            // count={totalPages}
+            // page={currentPage}
+            // onChange={handlePageChange}
+            variant="outlined"
+            color="secondary"
+          />
+        </Box>
       </Container>
+
       <PlayerModal
         open={isModalOpen}
         onClose={() => setModalOpen(false)}
