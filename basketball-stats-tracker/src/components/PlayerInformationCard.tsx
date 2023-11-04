@@ -5,6 +5,7 @@ import EditPlayerInformationModal from "./EditPlayerInformationModal";
 
 export default function PlayerInformationCard({ player }: { player: any }) {
   const [open, setOpen] = useState(false);
+
   return (
     <>
       <Card
@@ -43,17 +44,23 @@ export default function PlayerInformationCard({ player }: { player: any }) {
             Age: {player.age}
           </Typography>
           <Typography variant="body1" marginBottom={2}>
-            Birth Date: {player.birthDate}
+            Birth Date:{" "}
+            {new Date(player.birthDate).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
           </Typography>
           <Typography variant="body1" marginBottom={2}>
-            Hometown: {player.hometown}
+            Hometown: {player.homeTown}
           </Typography>
         </CardContent>
       </Card>
       <EditPlayerInformationModal
         open={open}
+        playerId={player.id}
         onClose={() => setOpen(false)}
-        onSubmit={() => {}}
+        onSubmit={() => console.log("not implemented yet")}
       />
     </>
   );

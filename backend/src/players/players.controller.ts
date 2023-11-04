@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
 import { PlayersService } from "./players.service";
 import { Player } from "./players.repository";
 
@@ -19,5 +19,10 @@ export class PlayersController {
   @Post()
   createPlayer(@Body() playerData: Omit<Player, "id">) {
     return this.playersService.create(playerData);
+  }
+
+  @Put("/:id")
+  updatePlayer(@Param("id") id: number, @Body() playerData: Partial<Player>) {
+    return this.playersService.update(id, playerData);
   }
 }

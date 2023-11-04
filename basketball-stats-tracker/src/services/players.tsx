@@ -96,3 +96,20 @@ export async function getPlayerAverages(playerId: number) {
     console.error("There was a problem with the fetch operation");
   }
 }
+
+export async function updatePlayer(playerId: number, data: any) {
+  try {
+    const response = await fetch(`http://localhost:5000/players/${playerId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("There was a problem with the fetch operation");
+  }
+}

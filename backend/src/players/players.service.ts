@@ -18,6 +18,12 @@ export class PlayersService {
     return this.playersRepository.create(playerData);
   }
 
-  // Add additional service methods as needed
+  async update(id: number, playerData: Partial<Player>): Promise<Player> {
+    if (playerData.birthDate) {
+      playerData.age =
+        new Date().getFullYear() - new Date(playerData.birthDate).getFullYear();
+    }
+    return this.playersRepository.update(id, playerData);
+  }
 }
 export { Player };

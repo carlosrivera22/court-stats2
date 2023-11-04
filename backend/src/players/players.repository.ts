@@ -5,7 +5,7 @@ export interface Player {
   firstName: string;
   lastName: string;
   birthDate?: string;
-  hometown?: string;
+  homeTown?: string;
   age?: number;
 }
 
@@ -22,5 +22,13 @@ export class PlayersRepository {
   async create(playerData: Omit<Player, "id">): Promise<Player> {
     const [newPlayer] = await db("players").insert(playerData).returning("*"); // Make sure to use returning('*') to get the inserted player data back
     return newPlayer;
+  }
+
+  async update(id: number, playerData: Partial<Player>): Promise<Player> {
+    const [updatedPlayer] = await db("players")
+      .where("id", id)
+      .update(playerData)
+      .returning("*");
+    return updatedPlayer;
   }
 }
