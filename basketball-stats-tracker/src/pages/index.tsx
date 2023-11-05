@@ -58,7 +58,7 @@ export default function Home() {
               justifyContent="center"
               alignItems="center"
             >
-              <Grid item xs={12} sm={12} md={12} lg={12}>
+              <Grid item xs={12} sm={12} md={12} lg={12} width={400}>
                 <TextField
                   fullWidth
                   id="outlined-search"
@@ -105,7 +105,7 @@ export default function Home() {
             ))}
           </Grid>
         )}
-        {players.data.length === 0 ? null : (
+        {players.data.length === 0 || players.totalPages <= 1 ? null : (
           <Box display="flex" justifyContent="center" mb={10}>
             <Pagination
               count={players.totalPages}
