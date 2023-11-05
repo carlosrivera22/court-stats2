@@ -6,8 +6,11 @@ import PlayerCard from "@/components/PlayerCard";
 import PlayerModal from "@/components/PlayerModal";
 import { getPlayers } from "@/services/players";
 import Pagination from "@mui/material/Pagination";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function Home() {
+  const { user } = useAuth();
+  console.info("USER: ", user);
   const [players, setPlayers] = useState<any>(null);
   const [, setSearchTerm] = useState("");
   useEffect(() => {
