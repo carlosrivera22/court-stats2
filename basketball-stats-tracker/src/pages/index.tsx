@@ -14,15 +14,15 @@ export default function Home() {
     fetchPlayers();
   }, []);
 
-  const fetchPlayers = async () => {
-    const data = await getPlayers();
+  const fetchPlayers = async (page: number = 1) => {
+    const data = await getPlayers(page);
     setPlayers(data); // Set the player data directly here
   };
 
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const handlePageChange = (event: any, value: any) => {
-    alert(value);
+  const handlePageChange = async (event: any, value: any) => {
+    await fetchPlayers(value);
   };
 
   if (!players) return null; // Add a loading state or some placeholder if the data isn't fetched yet

@@ -1,8 +1,8 @@
 // Assuming your backend server is running on http://localhost:5000
 
-export async function getPlayers() {
+export async function getPlayers(page: number = 1) {
   try {
-    const response = await fetch("http://localhost:5000/players");
+    const response = await fetch(`http://localhost:5000/players?page=${page}`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
