@@ -6,8 +6,10 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import HomeIcon from "@mui/icons-material/Home";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function Navbar() {
+  const { user, logout } = useAuth();
   const router = useRouter(); // Create a router instance
 
   return (
@@ -26,10 +28,21 @@ export default function Navbar() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Full Court Metrics
         </Typography>
-        <Button color="inherit" onClick={() => router.push("/login")}>
-          Login
-        </Button>{" "}
-        {/* Use router here */}
+        {user ? (
+          <Button
+            color="inherit"
+            onClick={() => {
+              logout();
+              router.push("/login");
+            }}
+          >
+            Logout
+          </Button>
+        ) : (
+          <Button color="inherit" onClick={() => router.push("/login")}>
+            Login
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );

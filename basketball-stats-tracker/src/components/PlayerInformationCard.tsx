@@ -2,6 +2,7 @@ import { Card, CardContent, Box, Typography, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useState } from "react";
 import EditPlayerInformationModal from "./EditPlayerInformationModal";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function PlayerInformationCard({
   player,
@@ -10,6 +11,7 @@ export default function PlayerInformationCard({
   player: any;
   onUpdate: () => void;
 }) {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
 
   return (
@@ -35,16 +37,18 @@ export default function PlayerInformationCard({
             <Typography variant="h6" gutterBottom marginBottom={0}>
               Personal Information
             </Typography>
-            <IconButton
-              size="small"
-              style={{
-                background: "rgba(0, 0, 0, 0.04)",
-                borderRadius: "50%",
-              }}
-              onClick={() => setOpen(true)}
-            >
-              <EditIcon />
-            </IconButton>
+            {user && (
+              <IconButton
+                size="small"
+                style={{
+                  background: "rgba(0, 0, 0, 0.04)",
+                  borderRadius: "50%",
+                }}
+                onClick={() => setOpen(true)}
+              >
+                <EditIcon />
+              </IconButton>
+            )}
           </Box>
           <Box display="flex" alignItems="center" marginBottom={2}>
             <Typography variant="body1" marginRight={1}>
