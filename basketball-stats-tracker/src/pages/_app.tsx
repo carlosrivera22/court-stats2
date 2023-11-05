@@ -7,6 +7,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CssBaseline from "@mui/material/CssBaseline";
 import "../css/lato.css";
+import { AuthProvider } from "@/providers/AuthProvider";
 
 const theme = createTheme({
   // your custom theme configurations go here
@@ -32,12 +33,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Box mb={10}>
-          <Navbar />
-        </Box>
-        <Component {...pageProps} />
-      </LocalizationProvider>
+      <AuthProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Box mb={10}>
+            <Navbar />
+          </Box>
+          <Component {...pageProps} />
+        </LocalizationProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
