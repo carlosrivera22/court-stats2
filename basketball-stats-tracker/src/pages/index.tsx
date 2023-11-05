@@ -9,13 +9,14 @@ import Pagination from "@mui/material/Pagination";
 
 export default function Home() {
   const [players, setPlayers] = useState<any>(null);
+  const [, setSearchTerm] = useState("");
   useEffect(() => {
     // Moved the function inside the useEffect to avoid unnecessary redeclarations
     fetchPlayers();
   }, []);
 
-  const fetchPlayers = async (page: number = 1) => {
-    const data = await getPlayers(page);
+  const fetchPlayers = async (page: number = 1, searchTerm = "") => {
+    const data = await getPlayers(page, searchTerm);
     setPlayers(data); // Set the player data directly here
   };
 
@@ -23,6 +24,11 @@ export default function Home() {
 
   const handlePageChange = async (event: any, value: any) => {
     await fetchPlayers(value);
+  };
+
+  const handleSearch = async (event: any) => {
+    setSearchTerm(event.target.value);
+    await fetchPlayers(1, event.target.value);
   };
 
   if (!players) return null; // Add a loading state or some placeholder if the data isn't fetched yet
@@ -56,6 +62,7 @@ export default function Home() {
                   id="outlined-search"
                   label="Search player"
                   type="search"
+                  onChange={handleSearch}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -80,11 +87,11 @@ export default function Home() {
         {players.data.length === 0 ? (
           <Box display="flex" flexDirection="column" alignItems="center">
             <Typography variant="h6" marginTop={10}>
-              No players have been added yet.
+              No players found
             </Typography>
           </Box>
         ) : (
-          <Grid container spacing={7} mt={1} mb={10}>
+          <Grid container spacing={7} mt={1} mb={5}>
             {players.data.map((player: any, index: Key | null | undefined) => (
               <Grid item key={index} xs={12} sm={12} md={6} lg={4}>
                 <Box>
@@ -94,15 +101,17 @@ export default function Home() {
             ))}
           </Grid>
         )}
-        <Box display="flex" justifyContent="center" mb={10}>
-          <Pagination
-            count={players.totalPages}
-            // page={currentPage}
-            onChange={handlePageChange}
-            variant="outlined"
-            color="secondary"
-          />
-        </Box>
+        {players.data.length === 0 ? null : (
+          <Box display="flex" justifyContent="center" mb={10}>
+            <Pagination
+              count={players.totalPages}
+              // page={currentPage}
+              onChange={handlePageChange}
+              variant="outlined"
+              color="secondary"
+            />
+          </Box>
+        )}
       </Container>
 
       <PlayerModal

@@ -10,9 +10,10 @@ export class PlayersController {
   getPlayers(
     @Query("page") page: number = 1,
     @Query("limit") limit: number = 6,
+    @Query("searchTerm") searchTerm?: string, // New optional search query parameter
   ): Promise<{ data: Player[]; total: number; page: number; limit: number }> {
-    limit = Math.min(100, limit);
-    return this.playersService.findAll(page, limit);
+    limit = Math.min(100, limit); // Ensure limit is not greater than 100
+    return this.playersService.findAll(page, limit, searchTerm); // Include searchTerm
   }
 
   @Get("/:id")

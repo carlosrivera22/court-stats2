@@ -10,6 +10,7 @@ export class PlayersService {
   async findAll(
     page: number = 1,
     limit: number = 10,
+    searchTerm?: string, // New optional search parameter
   ): Promise<{
     data: Player[];
     total: number;
@@ -18,11 +19,22 @@ export class PlayersService {
     limit: number;
   }> {
     const offset = (page - 1) * limit;
-    const data = await this.playersRepository.findAll(limit, offset);
+    const data = await this.playersRepository.findAll(
+      limit,
+      offset,
+      searchTerm,
+    ); // Include searchTerm
 
-    // Assuming `count` returns an object with a single property `count` that is the total number of players
-    const total = (await db("players").count("* as count").first())?.count || 0;
-    const totalPages = Math.ceil(total / limit); // Calculate total pages
+    // Adjust the count query to include the search term
+    let countQuery = db("players");
+    if (searchTerm) {
+      countQuery = countQuery
+        .whereRaw('LOWER("firstName") LIKE ?', [searchTerm.toLowerCase()])
+        .orWhereRaw('LOWER("lastName") LIKE ?', [searchTerm.toLowerCase()]);
+    }
+    const total = (await countQuery.count("* as count").first())?.count || 0;
+
+    const totalPages = Math.ceil(total / limit);
 
     return {
       data: data,

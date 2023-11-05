@@ -11,8 +11,21 @@ export interface Player {
 
 @Injectable()
 export class PlayersRepository {
-  async findAll(limit: number, offset: number): Promise<Player[]> {
-    return db("players").select("*").limit(limit).offset(offset);
+  async findAll(
+    limit: number,
+    offset: number,
+    searchTerm?: string,
+  ): Promise<Player[]> {
+    let query = db("players").select("*");
+
+    if (searchTerm) {
+      const lowerCaseSearchTerm = `%${searchTerm.toLowerCase()}%`;
+      query = query
+        .whereRaw('LOWER("firstName") LIKE ?', [lowerCaseSearchTerm])
+        .orWhereRaw('LOWER("lastName") LIKE ?', [lowerCaseSearchTerm]);
+    }
+
+    return query.limit(limit).offset(offset);
   }
 
   async findById(id: number): Promise<Player | undefined> {

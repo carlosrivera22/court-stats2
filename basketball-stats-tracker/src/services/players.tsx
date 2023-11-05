@@ -1,15 +1,22 @@
 // Assuming your backend server is running on http://localhost:5000
 
-export async function getPlayers(page: number = 1) {
+export async function getPlayers(page: number = 1, searchTerm: string = "") {
   try {
-    const response = await fetch(`http://localhost:5000/players?page=${page}`);
+    let url = `http://localhost:5000/players?page=${page}`;
+
+    // Append the searchTerm to the URL if it's provided and not an empty string
+    if (searchTerm) {
+      url += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("There was a problem with the fetch operartion: ", error);
+    console.error("There was a problem with the fetch operation: ", error);
   }
 }
 
