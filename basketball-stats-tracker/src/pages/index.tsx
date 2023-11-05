@@ -6,8 +6,10 @@ import PlayerCard from "@/components/PlayerCard";
 import PlayerModal from "@/components/PlayerModal";
 import { getPlayers } from "@/services/players";
 import Pagination from "@mui/material/Pagination";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function Home() {
+  const { user } = useAuth();
   const [players, setPlayers] = useState<any>(null);
   const [, setSearchTerm] = useState("");
   useEffect(() => {
@@ -65,22 +67,24 @@ export default function Home() {
                   onChange={handleSearch}
                 />
               </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={12}>
-                <Button
-                  fullWidth
-                  startIcon={<AddIcon />}
-                  size="large"
-                  variant="contained"
-                  color="primary"
-                  style={{
-                    fontWeight: "800",
-                    marginTop: 5,
-                  }}
-                  onClick={() => setModalOpen(true)}
-                >
-                  Add Player
-                </Button>
-              </Grid>
+              {user && (
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                  <Button
+                    fullWidth
+                    startIcon={<AddIcon />}
+                    size="large"
+                    variant="contained"
+                    color="primary"
+                    style={{
+                      fontWeight: "800",
+                      marginTop: 5,
+                    }}
+                    onClick={() => setModalOpen(true)}
+                  >
+                    Add Player
+                  </Button>
+                </Grid>
+              )}
             </Grid>
           </Box>
         </Box>

@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { getPlayerAverages } from "@/services/players";
 import PlayerInformationCard from "./PlayerInformationCard";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { useAuth } from "@/providers/AuthProvider";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -65,6 +66,7 @@ export default function ProfileTabs({
   player: any;
   refetchPlayer: (playerId: number) => void;
 }) {
+  const { user } = useAuth();
   const [value, setValue] = useState(0);
   const [averages, setAverages] = useState<any>([]);
 
@@ -194,14 +196,18 @@ export default function ProfileTabs({
         </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Button
-          component="label"
-          variant="contained"
-          startIcon={<CloudUploadIcon />}
-        >
-          <Typography fontWeight={"800"}>Upload video</Typography>
-          <VisuallyHiddenInput type="file" />
-        </Button>
+        {user ? (
+          <Button
+            component="label"
+            variant="contained"
+            startIcon={<CloudUploadIcon />}
+          >
+            <Typography fontWeight={"800"}>Upload video</Typography>
+            <VisuallyHiddenInput type="file" />
+          </Button>
+        ) : (
+          <Typography fontWeight={"800"}>No Highlights Found</Typography>
+        )}
       </CustomTabPanel>
     </Box>
   );

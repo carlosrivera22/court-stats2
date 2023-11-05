@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { getPlayerStats } from "@/services/players";
 import AddStatsModal from "./AddStatsModal";
 import { Box, Button } from "@mui/material";
+import { useAuth } from "@/providers/AuthProvider";
 
 interface Column {
   id: "date" | "points" | "assists" | "rebounds";
@@ -34,6 +35,7 @@ export default function StatsTable({
   player: any;
   onUpdate: () => void;
 }) {
+  const { user } = useAuth();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -127,19 +129,20 @@ export default function StatsTable({
           marginBottom: "15px",
         }}
       >
-        <Button
-          size="small"
-          variant="contained"
-          color="primary"
-          onClick={() => setOpen(true)}
-          style={{
-            fontWeight: "800",
-            marginLeft: "15px",
-          }}
-        >
-          Add Stats
-        </Button>
-
+        {user && (
+          <Button
+            size="small"
+            variant="contained"
+            color="primary"
+            onClick={() => setOpen(true)}
+            style={{
+              fontWeight: "800",
+              marginLeft: "15px",
+            }}
+          >
+            Add Stats
+          </Button>
+        )}
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
