@@ -7,6 +7,7 @@ export interface Player {
   birthDate?: string;
   homeTown?: string;
   age?: number;
+  profilePictureUrl?: string;
 }
 
 @Injectable()
@@ -24,6 +25,9 @@ export class PlayersRepository {
         .whereRaw('LOWER("firstName") LIKE ?', [lowerCaseSearchTerm])
         .orWhereRaw('LOWER("lastName") LIKE ?', [lowerCaseSearchTerm]);
     }
+
+    // Add an orderBy clause to sort by firstName
+    query = query.orderBy("firstName", "asc"); // 'asc' for ascending, 'desc' for descending
 
     return query.limit(limit).offset(offset);
   }

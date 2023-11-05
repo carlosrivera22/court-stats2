@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import ProfileTabs from "@/components/ProfileTabs";
-import { getPlayer } from "../../services/players";
+import { getPlayer, updatePlayer } from "../../services/players";
 import { useEffect, useState, useRef } from "react";
 import { storage } from "@/firebase/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -21,7 +21,7 @@ const PlayerProfilePage = () => {
     if (id) {
       getPlayerById(parseInt(id.toString()));
     }
-  }, [id]);
+  }, [id, player]);
 
   const handleAvatarClick = () => {
     // Trigger file input click when Avatar is clicked
@@ -40,6 +40,9 @@ const PlayerProfilePage = () => {
 
       // Get the downloadable URL
       const url = await getDownloadURL(snapshot.ref);
+      await updatePlayer(player.id, {
+        profilePictureUrl: url,
+      });
       return url; // This URL can be saved to your database
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -69,7 +72,7 @@ const PlayerProfilePage = () => {
       />
       <Button onClick={handleAvatarClick}>
         <Avatar
-          src="/images/player_placeholder.png"
+          src={player.profilePictureUrl ?? "/images/player_placeholder.png"}
           sx={{ width: 150, height: 150, marginBottom: 2, marginTop: 1 }}
         />
       </Button>

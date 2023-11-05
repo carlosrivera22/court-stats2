@@ -17,7 +17,7 @@ export default function PlayerCard({ player }: { player: any }) {
       setAverages(averages);
     };
     fetchAverages();
-  }, []);
+  }, [player.id]);
 
   if (!averages) return null;
   return (
@@ -32,8 +32,10 @@ export default function PlayerCard({ player }: { player: any }) {
         <CardActionArea sx={{ display: "flex", flexDirection: "row" }}>
           <CardMedia
             component="img"
-            sx={{ width: 150 }} // Smaller width
-            image="./images/player_placeholder.png"
+            sx={{ width: 150, height: 150 }} // Smaller width
+            image={
+              player.profilePictureUrl ?? "./images/player_placeholder.png"
+            }
             alt="Player Image"
           />
           <CardContent
