@@ -3,6 +3,8 @@ import { Avatar, Box, Button, Typography } from "@mui/material";
 import ProfileTabs from "@/components/ProfileTabs";
 import { getPlayer } from "../../services/players";
 import { useEffect, useState, useRef } from "react";
+import { storage } from "@/firebase/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const PlayerProfilePage = () => {
   const router = useRouter();
@@ -26,12 +28,31 @@ const PlayerProfilePage = () => {
     fileInputRef.current?.click();
   };
 
+  const uploadProfileImage = async (file: File) => {
+    if (!file) return;
+
+    // Create a storage reference
+    const storageRef = ref(storage, `profileImages/${file.name}`);
+
+    try {
+      // Upload the file to Firebase Storage
+      const snapshot = await uploadBytes(storageRef, file);
+
+      // Get the downloadable URL
+      const url = await getDownloadURL(snapshot.ref);
+      return url; // This URL can be saved to your database
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      // Handle errors here
+    }
+  };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     // Handle the file upload here
-    console.log("Selected file:", file);
+    uploadProfileImage(file);
     // You can call an upload function here
   };
 
