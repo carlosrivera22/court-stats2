@@ -258,10 +258,12 @@ export default function ProfileTabs({
             alignContent={"center"}
             display={"flex"}
             mb={5}
+            mt={15}
           >
             <Button
               component="label"
-              variant="contained"
+              variant="outlined"
+              color="secondary"
               startIcon={<CloudUploadIcon />}
             >
               <Typography fontWeight="800">Upload video</Typography>

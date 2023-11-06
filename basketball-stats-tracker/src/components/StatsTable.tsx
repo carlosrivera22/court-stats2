@@ -12,7 +12,7 @@ import { getPlayerStats } from "@/services/players";
 import AddStatsModal from "./AddStatsModal";
 import { Box, Button } from "@mui/material";
 import { useAuth } from "@/providers/AuthProvider";
-
+import AddIcon from "@mui/icons-material/Add";
 interface Column {
   id: "date" | "points" | "assists" | "rebounds";
   label: string;
@@ -137,9 +137,10 @@ export default function StatsTable({
       >
         {user && (
           <Button
+            startIcon={<AddIcon />}
             size="small"
-            variant="contained"
-            color="primary"
+            variant="outlined"
+            color="secondary"
             onClick={() => setOpen(true)}
             style={{
               fontWeight: "800",
