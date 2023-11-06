@@ -45,6 +45,8 @@ export default function PlayerInformationCard({
                 style={{
                   background: "rgba(0, 0, 0, 0.04)",
                   borderRadius: "50%",
+                  backgroundColor: "#ffe7e0",
+                  color: "#ff8b68",
                 }}
                 onClick={() => setOpen(true)}
               >

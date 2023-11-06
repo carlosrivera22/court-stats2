@@ -1,7 +1,6 @@
 import { Key, useEffect, useState } from "react";
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import AddIcon from "@mui/icons-material/Add";
 import PlayerCard from "@/components/PlayerCard";
 import PlayerModal from "@/components/PlayerModal";
 import { getPlayers } from "@/services/players";
