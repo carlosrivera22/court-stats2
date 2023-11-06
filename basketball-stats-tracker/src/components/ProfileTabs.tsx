@@ -69,6 +69,7 @@ export default function ProfileTabs({
   const { user } = useAuth();
   const [value, setValue] = useState(0);
   const [averages, setAverages] = useState<any>([]);
+  const [videoUrl, setVideoUrl] = useState("");
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -196,17 +197,40 @@ export default function ProfileTabs({
         </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        {user ? (
+        {user && !videoUrl ? (
           <Button
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
           >
             <Typography fontWeight={"800"}>Upload video</Typography>
-            <VisuallyHiddenInput type="file" />
+            <VisuallyHiddenInput
+              type="file"
+              accept="video/*"
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  const videoFile = e.target.files[0];
+                  const url = URL.createObjectURL(videoFile);
+                  setVideoUrl(url);
+                }
+              }}
+            />
           </Button>
-        ) : (
+        ) : !videoUrl ? (
           <Typography fontWeight={"800"}>No Highlights Found</Typography>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center", // Center children horizontally
+              width: "100%", // Use the full screen width
+            }}
+          >
+            <video width="90%" controls>
+              <source src={videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </Box>
         )}
       </CustomTabPanel>
     </Box>
