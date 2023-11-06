@@ -1,14 +1,19 @@
 // Assuming your backend server is running on http://localhost:5000
 
-export async function getPlayers(page: number = 1, searchTerm: string = "") {
+export async function getPlayers(
+  page: number = 1,
+  searchTerm: string = "",
+  sortBy?: string,
+) {
   try {
     let url = `http://localhost:5000/players?page=${page}`;
-
     // Append the searchTerm to the URL if it's provided and not an empty string
     if (searchTerm) {
       url += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-
+    if (sortBy) {
+      url += `&sortBy=${encodeURIComponent(sortBy)}`;
+    }
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error("Network response was not ok");

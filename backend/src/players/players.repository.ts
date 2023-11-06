@@ -13,8 +13,8 @@ export interface Player {
 @Injectable()
 export class PlayersRepository {
   async findAll(
-    limit: number,
-    offset: number,
+    limit?: number,
+    offset?: number,
     searchTerm?: string,
   ): Promise<Player[]> {
     let query = db("players").select("*");
@@ -28,8 +28,13 @@ export class PlayersRepository {
 
     // Add an orderBy clause to sort by firstName
     query = query.orderBy("createdAt", "desc"); // 'asc' for ascending, 'desc' for descending
-
-    return query.limit(limit).offset(offset);
+    if (limit) {
+      query = query.limit(limit);
+    }
+    if (offset) {
+      query = query.offset(offset);
+    }
+    return query;
   }
 
   async findById(id: number): Promise<Player | undefined> {

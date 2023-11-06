@@ -8,29 +8,40 @@ import Pagination from "@mui/material/Pagination";
 import { useAuth } from "@/providers/AuthProvider";
 import SortButton from "@/components/SortButton";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+
 export default function Home() {
   const { user } = useAuth();
   const [players, setPlayers] = useState<any>(null);
-  const [, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("");
   useEffect(() => {
     // Moved the function inside the useEffect to avoid unnecessary redeclarations
     fetchPlayers();
   }, []);
 
-  const fetchPlayers = async (page: number = 1, searchTerm = "") => {
-    const data = await getPlayers(page, searchTerm);
+  const fetchPlayers = async (
+    page: number = 1,
+    searchTerm = "",
+    sortBy?: string,
+  ) => {
+    const data = await getPlayers(page, searchTerm, sortBy);
     setPlayers(data); // Set the player data directly here
   };
 
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handlePageChange = async (event: any, value: any) => {
-    await fetchPlayers(value);
+    await fetchPlayers(value, searchTerm, sortBy);
   };
 
   const handleSearch = async (event: any) => {
     setSearchTerm(event.target.value);
     await fetchPlayers(1, event.target.value);
+  };
+
+  const handleSort = async (sortKey: string) => {
+    setSortBy(sortKey);
+    await fetchPlayers(1, searchTerm, sortKey);
   };
 
   if (!players) return null; // Add a loading state or some placeholder if the data isn't fetched yet
@@ -68,7 +79,7 @@ export default function Home() {
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={4} lg={4} width={300}>
-                <SortButton sortBy={(key) => console.log(key)} />
+                <SortButton sortBy={handleSort} />
               </Grid>
               {user && (
                 <Grid item xs={12} sm={12} md={2} lg={2}>

@@ -1,7 +1,6 @@
 // players.service.ts
 import { Injectable } from "@nestjs/common";
 import { PlayersRepository, Player } from "./players.repository";
-import db from "src/database";
 import { PlayerStatsService } from "src/playerStats/player-stats.service";
 
 @Injectable()
@@ -15,7 +14,7 @@ export class PlayersService {
     page: number = 1,
     limit: number = 10,
     searchTerm?: string,
-    sortKey: "ppg" | "rpg" | "apg" = "ppg", // Default sort key
+    sortKey: "ppg" | "rpg" | "apg" = "ppg",
   ): Promise<{
     data: Player[];
     total: number;
@@ -23,23 +22,15 @@ export class PlayersService {
     page: number;
     limit: number;
   }> {
-    const offset = (page - 1) * limit;
-    const data = await this.playersRepository.findAll(
-      limit,
-      offset,
+    // Get the unpaginated list of players matching the search term.
+    const allMatchingPlayers = await this.playersRepository.findAll(
+      undefined,
+      undefined,
       searchTerm,
-    ); // Include searchTerm
-
-    // Adjust the count query to include the search term
-    let countQuery = db("players");
-    if (searchTerm) {
-      countQuery = countQuery
-        .whereRaw('LOWER("firstName") LIKE ?', [searchTerm.toLowerCase()])
-        .orWhereRaw('LOWER("lastName") LIKE ?', [searchTerm.toLowerCase()]);
-    }
-
+    );
+    // Get averages for each player and attach them to the player object.
     const playersWithAverages = await Promise.all(
-      data.map(async (player) => {
+      allMatchingPlayers.map(async (player) => {
         const averages = await this.playerStatsService.findAveragesByPlayerId(
           player.id,
         );
@@ -47,16 +38,20 @@ export class PlayersService {
       }),
     );
 
-    // Sort based on the selected sort key
+    // Sort the players with averages based on the sort key.
     playersWithAverages.sort(
       (a, b) => b.averages[sortKey] - a.averages[sortKey],
     );
 
-    // Apply pagination to the sorted array
-    const paginatedPlayers = playersWithAverages.slice(offset, offset + limit);
-    const total = (await countQuery.count("* as count").first())?.count || 0;
-
+    // Calculate the total number of players (for pagination).
+    const total = playersWithAverages.length;
     const totalPages = Math.ceil(total / limit);
+
+    // Apply pagination by slicing the sorted list.
+    const paginatedPlayers = playersWithAverages.slice(
+      (page - 1) * limit,
+      page * limit,
+    );
 
     return {
       data: paginatedPlayers,
