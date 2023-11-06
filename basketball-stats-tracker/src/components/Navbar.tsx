@@ -33,7 +33,7 @@ export default function Navbar() {
             color="inherit"
             onClick={() => {
               logout();
-              router.push("/login");
+              router.push("/");
             }}
           >
             Logout
