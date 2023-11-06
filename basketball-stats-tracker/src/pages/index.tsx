@@ -99,7 +99,7 @@ export default function Home() {
             </Typography>
           </Box>
         ) : (
-          <Grid container spacing={7} mt={1} mb={5}>
+          <Grid container spacing={5} mt={1} mb={10}>
             {players.data.map((player: any, index: Key | null | undefined) => (
               <Grid item key={index} xs={12} sm={12} md={6} lg={4}>
                 <Box>

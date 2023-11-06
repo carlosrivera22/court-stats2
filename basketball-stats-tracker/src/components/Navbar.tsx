@@ -13,7 +13,11 @@ export default function Navbar() {
   const router = useRouter(); // Create a router instance
 
   return (
-    <AppBar>
+    <AppBar
+      style={{
+        boxShadow: "none",
+      }}
+    >
       <Toolbar>
         <IconButton
           size="large"
