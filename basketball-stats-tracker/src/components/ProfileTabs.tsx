@@ -3,7 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Button, Card, CardContent, styled } from "@mui/material";
+import { Button, Card, CardContent } from "@mui/material";
 import StatsTable from "./StatsTable";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
@@ -22,18 +22,6 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
-
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -261,6 +249,29 @@ export default function ProfileTabs({
         </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
+        {user ? (
+          <Box
+            justifyContent={"center"}
+            alignContent={"center"}
+            display={"flex"}
+            mb={5}
+          >
+            <Button
+              component="label"
+              variant="contained"
+              startIcon={<CloudUploadIcon />}
+            >
+              <Typography fontWeight="800">Upload video</Typography>
+              <input
+                type="file"
+                accept="video/*"
+                onChange={handleVideoChange}
+                style={{ display: "none" }} // Visually hide the input but keep it accessible
+              />
+            </Button>
+          </Box>
+        ) : null}{" "}
+        {/* Added null for the false condition */}
         {uploading ? (
           <Box
             display="flex"
@@ -270,27 +281,14 @@ export default function ProfileTabs({
           >
             <CircularProgressWithLabel value={uploadProgress} />
           </Box>
-        ) : user && !videoUrl ? (
-          <Button
-            component="label"
-            variant="contained"
-            startIcon={<CloudUploadIcon />}
-          >
-            <Typography fontWeight={"800"}>Upload video</Typography>
-            <VisuallyHiddenInput
-              type="file"
-              accept="video/*"
-              onChange={handleVideoChange}
-            />
-          </Button>
         ) : !videoUrl ? (
-          <Typography fontWeight={"800"}>No Highlights Found</Typography>
+          <Typography fontWeight="800">No Highlights Found</Typography>
         ) : (
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center", // Center children horizontally
-              width: "100%", // Use the full screen width
+              justifyContent: "center",
+              width: "100%",
             }}
           >
             <video width="90%" controls>
