@@ -27,6 +27,24 @@ const theme = createTheme({
   typography: {
     fontFamily: "Lato",
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none", // This removes the shadow
+          "&:hover": {
+            boxShadow: "none", // This removes the shadow when the button is hovered
+          },
+          "&:active": {
+            boxShadow: "none", // This removes the shadow when the button is clicked
+          },
+          "&:focus": {
+            boxShadow: "none", // This removes the shadow when the button is focused
+          },
+        },
+      },
+    },
+  },
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
