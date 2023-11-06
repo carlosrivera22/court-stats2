@@ -2,15 +2,20 @@
 import { Injectable } from "@nestjs/common";
 import { PlayersRepository, Player } from "./players.repository";
 import db from "src/database";
+import { PlayerStatsService } from "src/playerStats/player-stats.service";
 
 @Injectable()
 export class PlayersService {
-  constructor(private playersRepository: PlayersRepository) {}
+  constructor(
+    private readonly playersRepository: PlayersRepository,
+    private readonly playerStatsService: PlayerStatsService, // Inject PlayerStatsService
+  ) {}
 
   async findAll(
     page: number = 1,
     limit: number = 10,
-    searchTerm?: string, // New optional search parameter
+    searchTerm?: string,
+    sortKey: "ppg" | "rpg" | "apg" = "ppg", // Default sort key
   ): Promise<{
     data: Player[];
     total: number;
@@ -32,12 +37,29 @@ export class PlayersService {
         .whereRaw('LOWER("firstName") LIKE ?', [searchTerm.toLowerCase()])
         .orWhereRaw('LOWER("lastName") LIKE ?', [searchTerm.toLowerCase()]);
     }
+
+    const playersWithAverages = await Promise.all(
+      data.map(async (player) => {
+        const averages = await this.playerStatsService.findAveragesByPlayerId(
+          player.id,
+        );
+        return { ...player, averages };
+      }),
+    );
+
+    // Sort based on the selected sort key
+    playersWithAverages.sort(
+      (a, b) => b.averages[sortKey] - a.averages[sortKey],
+    );
+
+    // Apply pagination to the sorted array
+    const paginatedPlayers = playersWithAverages.slice(offset, offset + limit);
     const total = (await countQuery.count("* as count").first())?.count || 0;
 
     const totalPages = Math.ceil(total / limit);
 
     return {
-      data: data,
+      data: paginatedPlayers,
       total: total,
       totalPages: totalPages,
       page,
