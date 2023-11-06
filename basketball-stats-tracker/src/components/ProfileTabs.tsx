@@ -55,12 +55,12 @@ export default function ProfileTabs({
   refetchPlayer,
 }: {
   player: any;
-  refetchPlayer: (playerId: number) => void;
+  refetchPlayer: (player: any) => void;
 }) {
   const { user } = useAuth();
   const [value, setValue] = useState(0);
   const [averages, setAverages] = useState<any>([]);
-  const [videoUrl, setVideoUrl] = useState("");
+  const [videoUrl, setVideoUrl] = useState(player.highlightsUrl);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
 
@@ -282,7 +282,14 @@ export default function ProfileTabs({
             <CircularProgressWithLabel value={uploadProgress} />
           </Box>
         ) : !videoUrl ? (
-          <Typography fontWeight="800">No Highlights Found</Typography>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mt={10}
+          >
+            <Typography fontWeight="800">No Highlights Found</Typography>
+          </Box>
         ) : (
           <Box
             sx={{
