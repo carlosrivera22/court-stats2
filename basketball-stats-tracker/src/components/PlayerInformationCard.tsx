@@ -16,14 +16,13 @@ export default function PlayerInformationCard({
   return (
     <>
       <Card
-        elevation={3}
         sx={{
           width: "100%",
           maxWidth: { sm: 400 },
           marginTop: 2,
           marginBottom: { xs: 2, sm: 0 },
           marginLeft: { xs: 0, sm: 0 },
-          height: 200,
+          height: { xs: 220, sm: 200 },
           boxShadow: "none",
           border: 1, // defines the border width
           borderColor: "#c2c2c2", // use the theme's primary color
