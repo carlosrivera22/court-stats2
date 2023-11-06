@@ -54,9 +54,12 @@ export default function PlayerInformationCard({
             <Typography variant="body1" marginRight={1}>
               Age:
             </Typography>
-            <Typography variant="body1" color="secondary" fontWeight="800">
-              {player.age}
-            </Typography>
+            {player.birthDate && (
+              <Typography variant="body1" color="secondary" fontWeight="800">
+                {new Date().getFullYear() -
+                  new Date(player.birthDate).getFullYear()}
+              </Typography>
+            )}
           </Box>
 
           <Box display="flex" alignItems="center" marginBottom={2}>
