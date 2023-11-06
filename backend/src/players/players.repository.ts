@@ -27,7 +27,7 @@ export class PlayersRepository {
     }
 
     // Add an orderBy clause to sort by firstName
-    query = query.orderBy("firstName", "asc"); // 'asc' for ascending, 'desc' for descending
+    query = query.orderBy("createdAt", "desc"); // 'asc' for ascending, 'desc' for descending
 
     return query.limit(limit).offset(offset);
   }
