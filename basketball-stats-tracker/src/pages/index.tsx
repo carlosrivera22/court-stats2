@@ -7,7 +7,8 @@ import PlayerModal from "@/components/PlayerModal";
 import { getPlayers } from "@/services/players";
 import Pagination from "@mui/material/Pagination";
 import { useAuth } from "@/providers/AuthProvider";
-
+import SortButton from "@/components/SortButton";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 export default function Home() {
   const { user } = useAuth();
   const [players, setPlayers] = useState<any>(null);
@@ -51,14 +52,14 @@ export default function Home() {
             width={200}
             height={200}
           />
-          <Box marginTop={5} marginBottom={5}>
-            <Grid
-              container
-              spacing={2}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Grid item xs={12} sm={12} md={12} lg={12} width={400}>
+          <Box
+            marginTop={5}
+            justifyContent={"center"}
+            alignItems={"center"}
+            flex="display"
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12} md={6} lg={6} width={400}>
                 <TextField
                   fullWidth
                   id="outlined-search"
@@ -67,21 +68,24 @@ export default function Home() {
                   onChange={handleSearch}
                 />
               </Grid>
+              <Grid item xs={12} sm={12} md={4} lg={4} width={300}>
+                <SortButton sortBy={(key) => console.log(key)} />
+              </Grid>
               {user && (
-                <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Grid item xs={12} sm={12} md={2} lg={2}>
                   <Button
                     fullWidth
-                    startIcon={<AddIcon />}
+                    startIcon={<PersonAddAltIcon />}
                     size="large"
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     style={{
                       fontWeight: "800",
-                      marginTop: 5,
+                      height: 55,
                     }}
                     onClick={() => setModalOpen(true)}
                   >
-                    Add Player
+                    Player
                   </Button>
                 </Grid>
               )}
