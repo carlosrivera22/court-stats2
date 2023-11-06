@@ -9,10 +9,13 @@ import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import GroupIcon from "@mui/icons-material/Group";
 import { useEffect, useState } from "react";
-import { getPlayerAverages } from "@/services/players";
+import { getPlayerAverages, updatePlayer } from "@/services/players";
 import PlayerInformationCard from "./PlayerInformationCard";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useAuth } from "@/providers/AuthProvider";
+import { storage } from "@/firebase/firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { CircularProgressWithLabel } from "./CircularProgressWithLabel";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -70,6 +73,12 @@ export default function ProfileTabs({
   const [value, setValue] = useState(0);
   const [averages, setAverages] = useState<any>([]);
   const [videoUrl, setVideoUrl] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploading, setUploading] = useState(false);
+
+  const onUploadProgress = (progress: number) => {
+    setUploadProgress(progress);
+  };
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -83,6 +92,61 @@ export default function ProfileTabs({
   useEffect(() => {
     fetchAverages();
   }, []);
+
+  const uploadHighlights = async (
+    file: File,
+    onProgress: (percent: number) => void,
+  ) => {
+    if (!file) return;
+
+    // Create a storage reference
+    const storageRef = ref(storage, `highlights/${file.name}`);
+
+    try {
+      setUploading(true);
+      // Upload the file to Firebase Storage and monitor progress
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Get upload progress
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          onProgress(progress);
+        },
+        (error) => {
+          setUploading(false);
+          console.error("Error uploading file:", error);
+          // Handle errors here
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            updatePlayer(player.id, {
+              highlightsUrl: downloadURL,
+            });
+            setVideoUrl(downloadURL);
+            setUploading(false);
+          });
+        },
+      );
+    } catch (error) {
+      setUploading(false);
+      console.error("Error uploading file:", error);
+      // Handle errors here
+    }
+  };
+
+  const handleVideoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Handle the file upload here
+    uploadHighlights(file, onUploadProgress);
+    // You can call an upload function here
+  };
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -197,7 +261,16 @@ export default function ProfileTabs({
         </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        {user && !videoUrl ? (
+        {uploading ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            mt={10}
+          >
+            <CircularProgressWithLabel value={uploadProgress} />
+          </Box>
+        ) : user && !videoUrl ? (
           <Button
             component="label"
             variant="contained"
@@ -207,13 +280,7 @@ export default function ProfileTabs({
             <VisuallyHiddenInput
               type="file"
               accept="video/*"
-              onChange={(e) => {
-                if (e.target.files && e.target.files[0]) {
-                  const videoFile = e.target.files[0];
-                  const url = URL.createObjectURL(videoFile);
-                  setVideoUrl(url);
-                }
-              }}
+              onChange={handleVideoChange}
             />
           </Button>
         ) : !videoUrl ? (
