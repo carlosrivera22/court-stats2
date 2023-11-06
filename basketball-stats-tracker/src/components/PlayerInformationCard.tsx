@@ -13,7 +13,6 @@ export default function PlayerInformationCard({
 }) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
-
   return (
     <>
       <Card
@@ -25,6 +24,9 @@ export default function PlayerInformationCard({
           marginBottom: { xs: 2, sm: 0 },
           marginLeft: { xs: 0, sm: 0 },
           height: 200,
+          boxShadow: "none",
+          border: 1, // defines the border width
+          borderColor: "#c2c2c2", // use the theme's primary color
         }}
       >
         <CardContent>

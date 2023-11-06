@@ -28,7 +28,17 @@ export default function PlayerCard({ player }: { player: any }) {
         textDecoration: "none",
       }}
     >
-      <Card sx={{ maxWidth: 450, margin: "auto", maxHeight: 150, width: 390 }}>
+      <Card
+        sx={{
+          maxWidth: 450,
+          margin: "auto",
+          maxHeight: 150,
+          width: 390,
+          boxShadow: "none",
+          border: 1, // defines the border width
+          borderColor: "#c2c2c2", // use the theme's primary color
+        }}
+      >
         <CardActionArea sx={{ display: "flex", flexDirection: "row" }}>
           <CardMedia
             component="img"

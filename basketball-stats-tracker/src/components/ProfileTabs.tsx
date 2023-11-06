@@ -184,6 +184,9 @@ export default function ProfileTabs({
                 marginBottom: { xs: 2, sm: 0 }, // Margin at bottom for small screens
                 marginRight: { xs: 0, sm: 3 }, // Margin left only for screens bigger than small
                 height: 200,
+                boxShadow: "none",
+                border: 1, // defines the border width
+                borderColor: "#c2c2c2", // use the theme's primary color
               }}
             >
               <CardContent>

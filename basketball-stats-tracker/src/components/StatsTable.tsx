@@ -65,7 +65,13 @@ export default function StatsTable({
 
   return (
     <Paper
-      sx={{ width: { xs: "100%", md: "70%", lg: "70%" }, overflow: "hidden" }}
+      sx={{
+        width: { xs: "100%", md: "70%", lg: "70%" },
+        overflow: "hidden",
+        boxShadow: "none",
+        border: 1, // defines the border width
+        borderColor: "#c2c2c2", // use the theme's primary color
+      }}
     >
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
