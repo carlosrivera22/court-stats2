@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import HomeIcon from "@mui/icons-material/Home";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 import { useAuth } from "@/providers/AuthProvider";
 
 export default function Navbar() {
@@ -23,9 +23,20 @@ export default function Navbar() {
           sx={{ mr: 2 }}
           onClick={() => router.push("/")} // Use router for navigation
         >
-          <HomeIcon />
+          <SportsBasketballIcon
+            color="secondary"
+            style={{
+              fontSize: 40,
+              marginLeft: 10,
+            }}
+          />
         </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1 }}
+          fontWeight={"800"}
+        >
           Full Court Metrics
         </Typography>
         {user ? (
@@ -35,6 +46,7 @@ export default function Navbar() {
               logout();
               router.push("/");
             }}
+            style={{ fontWeight: "800" }}
           >
             Logout
           </Button>
