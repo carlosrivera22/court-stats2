@@ -13,6 +13,9 @@ import AddStatsModal from "./AddStatsModal";
 import { Box, Button } from "@mui/material";
 import { useAuth } from "@/providers/AuthProvider";
 import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIconOutline from "@mui/icons-material/DeleteOutline";
+
 interface Column {
   id: "date" | "points" | "assists" | "rebounds";
   label: string;
@@ -63,6 +66,14 @@ export default function StatsTable({
     setPage(0);
   };
 
+  const handleEdit = (id: number) => {
+    console.log(id);
+  };
+
+  const handleDelete = (id: number) => {
+    console.log(id);
+  };
+
   return (
     <Paper
       sx={{
@@ -84,13 +95,14 @@ export default function StatsTable({
                   style={{
                     minWidth: column.minWidth,
                     paddingRight:
-                      index === columns.length - 1 ? "50px" : undefined, // Add padding to the last column
+                      index === columns.length - 1 && user ? "50px" : undefined, // Add padding to the last column
                   }}
                   sx={{ backgroundColor: "#f0f0f0" }}
                 >
                   {column.label}
                 </TableCell>
               ))}
+              <TableCell sx={{ backgroundColor: "#f0f0f0" }} />
             </TableRow>
           </TableHead>
 
@@ -120,6 +132,20 @@ export default function StatsTable({
                         </TableCell>
                       );
                     })}
+                    <TableCell align="right">
+                      <EditIcon
+                        fontSize="small"
+                        onClick={() => handleEdit(row.id)}
+                        style={{ cursor: "pointer", marginRight: "10px" }}
+                        color="primary"
+                      />
+                      <DeleteIconOutline
+                        fontSize="small"
+                        onClick={() => handleDelete(row.id)}
+                        style={{ cursor: "pointer" }}
+                        color="secondary"
+                      />
+                    </TableCell>
                   </TableRow>
                 );
               })}
