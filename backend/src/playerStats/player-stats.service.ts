@@ -52,4 +52,8 @@ export class PlayerStatsService {
     const averages = { ppg, rpg, apg };
     return averages;
   }
+
+  async delete(id: number) {
+    return await this.playerStatsRepository.delete(id);
+  }
 }

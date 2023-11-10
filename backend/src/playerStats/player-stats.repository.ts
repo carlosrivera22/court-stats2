@@ -20,5 +20,7 @@ export class PlayerStatsRepository {
     return await db.select("*").from("playerStats").where("playerId", playerId);
   }
 
-  // Additional methods for update, delete, etc.
+  async delete(id: number) {
+    return await db("playerStats").where("id", id).del();
+  }
 }
