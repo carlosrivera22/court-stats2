@@ -13,7 +13,6 @@ import AddStatsModal from "./AddStatsModal";
 import { Box, Button } from "@mui/material";
 import { useAuth } from "@/providers/AuthProvider";
 import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIconOutline from "@mui/icons-material/DeleteOutline";
 import ConfirmModal from "./ConfirmModal";
 import assert from "assert";
@@ -71,10 +70,6 @@ export default function StatsTable({
     setPage(0);
   };
 
-  const handleEdit = (id: number) => {
-    console.log(id);
-  };
-
   const handleDelete = (id: number) => {
     setDeletingId(id);
     const selectedRow = playerStats.find(
@@ -113,14 +108,14 @@ export default function StatsTable({
                   style={{
                     minWidth: column.minWidth,
                     paddingRight:
-                      index === columns.length - 1 && user ? "50px" : undefined, // Add padding to the last column
+                      index === columns.length - 1 ? "50px" : undefined, // Add padding to the last column
                   }}
                   sx={{ backgroundColor: "#f0f0f0" }}
                 >
                   {column.label}
                 </TableCell>
               ))}
-              <TableCell sx={{ backgroundColor: "#f0f0f0" }} />
+              {user && <TableCell sx={{ backgroundColor: "#f0f0f0" }} />}
             </TableRow>
           </TableHead>
 
@@ -135,7 +130,7 @@ export default function StatsTable({
                     tabIndex={-1}
                     key={row.id} // It's better to use a unique id for the key if available
                   >
-                    {columns.map((column) => {
+                    {columns.map((column, index) => {
                       const value = row[column.id];
                       const date =
                         column.id === "date" &&
@@ -145,25 +140,28 @@ export default function StatsTable({
                           day: "numeric",
                         });
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          style={{
+                            paddingRight:
+                              index === columns.length - 1 ? "50px" : undefined,
+                          }}
+                        >
                           {column.id === "date" ? date : value}
                         </TableCell>
                       );
                     })}
-                    <TableCell align="right">
-                      <EditIcon
-                        fontSize="small"
-                        onClick={() => handleEdit(row.id)}
-                        style={{ cursor: "pointer", marginRight: "10px" }}
-                        color="primary"
-                      />
-                      <DeleteIconOutline
-                        fontSize="small"
-                        onClick={() => handleDelete(row.id)}
-                        style={{ cursor: "pointer" }}
-                        color="secondary"
-                      />
-                    </TableCell>
+                    {user && (
+                      <TableCell align="right">
+                        <DeleteIconOutline
+                          fontSize="small"
+                          onClick={() => handleDelete(row.id)}
+                          style={{ cursor: "pointer" }}
+                          color="secondary"
+                        />
+                      </TableCell>
+                    )}
                   </TableRow>
                 );
               })}
