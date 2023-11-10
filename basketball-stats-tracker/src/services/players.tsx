@@ -125,3 +125,19 @@ export async function updatePlayer(playerId: number, data: any) {
     console.error("There was a problem with the fetch operation");
   }
 }
+
+export async function deletePlayerStats(id: number) {
+  try {
+    const response = await fetch(`http://localhost:5000/player-stats/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    console.debug("response", response);
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("There was a problem with the fetch operation");
+  }
+}

@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useState, useEffect } from "react";
-import { getPlayerStats } from "@/services/players";
+import { deletePlayerStats, getPlayerStats } from "@/services/players";
 import AddStatsModal from "./AddStatsModal";
 import { Box, Button } from "@mui/material";
 import { useAuth } from "@/providers/AuthProvider";
@@ -16,6 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIconOutline from "@mui/icons-material/DeleteOutline";
 import ConfirmModal from "./ConfirmModal";
+import assert from "assert";
 
 interface Column {
   id: "date" | "points" | "assists" | "rebounds";
@@ -194,7 +195,7 @@ export default function StatsTable({
           </Button>
         )}
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          rowsPerPageOptions={[5, 10, 25, 100]}
           component="div"
           count={playerStats.length ?? 0}
           rowsPerPage={rowsPerPage}
@@ -220,7 +221,13 @@ export default function StatsTable({
         title="Delete Stats"
         body={`Are you sure you want to delete these stats from ${deletingDate}?`}
         open={openConfirmDialog}
-        onConfirm={() => console.log("confirm")}
+        onClose={() => setOpenConfirmDialog(false)}
+        onConfirm={async () => {
+          assert(deletingId, "deletingId should be defined");
+          await deletePlayerStats(deletingId);
+          fetchPlayerStats(player.id);
+          setOpenConfirmDialog(false);
+        }}
       />
     </Paper>
   );

@@ -15,7 +15,7 @@ export default function ConfirmModal({
   title: string;
   body: string;
   open: boolean;
-  onClose?: () => void;
+  onClose: () => void;
   onConfirm: () => void;
 }) {
   return (
