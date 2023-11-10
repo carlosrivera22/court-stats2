@@ -15,6 +15,7 @@ import { useAuth } from "@/providers/AuthProvider";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIconOutline from "@mui/icons-material/DeleteOutline";
+import ConfirmModal from "./ConfirmModal";
 
 interface Column {
   id: "date" | "points" | "assists" | "rebounds";
@@ -44,6 +45,9 @@ export default function StatsTable({
 
   const [playerStats, setPlayerStats] = useState<any>([]);
   const [open, setOpen] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [deletingId, setDeletingId] = useState<number>();
+  const [deletingDate, setDeletingDate] = useState("");
 
   const fetchPlayerStats = async (playerId: number) => {
     const stats = await getPlayerStats(playerId);
@@ -71,7 +75,20 @@ export default function StatsTable({
   };
 
   const handleDelete = (id: number) => {
-    console.log(id);
+    setDeletingId(id);
+    const selectedRow = playerStats.find(
+      (row: { id: number }) => row.id === id,
+    );
+    if (selectedRow) {
+      setDeletingDate(
+        new Date(selectedRow.date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
+      );
+    }
+    setOpenConfirmDialog(true);
   };
 
   return (
@@ -197,6 +214,13 @@ export default function StatsTable({
           onUpdate();
         }}
         playerId={player.id}
+      />
+
+      <ConfirmModal
+        title="Delete Stats"
+        body={`Are you sure you want to delete these stats from ${deletingDate}?`}
+        open={openConfirmDialog}
+        onConfirm={() => console.log("confirm")}
       />
     </Paper>
   );
